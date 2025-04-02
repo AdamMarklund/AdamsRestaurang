@@ -78,6 +78,7 @@ public class Waiter implements Listener {
 
         //int directionX = this.x + this.getDiameter()/2 < ternary operator
 
+
         // instead of long lines such as this.y + this.getDiameter()/2 > 320 && this.x
         // use direction and set it at the beginning.
 
@@ -101,7 +102,6 @@ public class Waiter implements Listener {
         // Go to tables y position
         else if (this.x + this.getDiameter()/2 == currentTablePosX + 45 && this.y  > currentTablePosY + 90) {
             this.y -= speed;
-            System.out.println("please go up");
         }
         else if (this.x + this.getDiameter()/2 == currentTablePosX + 45 && this.y + this.getDiameter() < currentTablePosY) {
             this.y += speed;
