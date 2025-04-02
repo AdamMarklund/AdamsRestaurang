@@ -9,20 +9,19 @@ public class Waiter implements Listener {
     private int speed = 5;
 
 
-    ArrayList<Integer> orderingQueue= new ArrayList<Integer>();
-    ArrayList<Integer> menuQueue= new ArrayList<Integer>();
+    ArrayList<Task> queue= new ArrayList<Task>();
 
 
     Waiter(int x, int y) {
         this.x = x;
         this.y = y;
 
-        menuQueue.add(2);
-        menuQueue.add(1);
-        menuQueue.add(6);
-        menuQueue.add(3);
-        menuQueue.add(4);
-        menuQueue.add(5);
+        queue.add((new Task(2, Task.Instruction.MENU)));
+        queue.add((new Task(1, Task.Instruction.MENU)));
+        queue.add((new Task(6, Task.Instruction.MENU)));
+        queue.add((new Task(3, Task.Instruction.MENU)));
+        queue.add((new Task(4, Task.Instruction.MENU)));
+        queue.add((new Task(5, Task.Instruction.MENU)));
 
 
 
@@ -43,7 +42,7 @@ public class Waiter implements Listener {
 
     // Moves Waiter, isAtTable, whenAtTable
     public void update() {
-        handOutMenus();
+        executeTasks();
     }
 
 
@@ -62,33 +61,62 @@ public class Waiter implements Listener {
     // The waiter is a subscriber to the publisher Table, getOrder = notifyListeners
     @Override
     public void getOrders(int tableNumber) {
-        this.orderingQueue.add(tableNumber);
+
+       // this.orderingQueue.add(tableNumber);
     }
 
 
     // Turn into listener as well? And change into movetotable()
 
     // make into one queue with objects.
-    public void handOutMenus() {
-        if (menuQueue.isEmpty()) return;
+    public void executeTasks() {
+        if (queue.isEmpty()) return;
 
-        int tableNumber = menuQueue.get(0);
+        int tableNumber = queue.get(0).getTableNumber();
         int currentTablePosX = calculateTablePosX(tableNumber);
         int currentTablePosY = calulateTablePosY(tableNumber);
 
-        System.out.println(currentTablePosX);
+        //int directionX = this.x + this.getDiameter()/2 < ternary operator
 
+        // instead of long lines such as this.y + this.getDiameter()/2 > 320 && this.x
+        // use direction and set it at the beginning.
 
-
-        if (this.x + this.getDiameter()/2 < currentTablePosX + 45) {
-            this.x += 5; // Move right
+        // if the waiter is beneath the center of the screen and the waiter has not arrived at the tables x position
+        if (this.y + this.getDiameter()/2 > 320 && this.x + this.getDiameter()/2 != currentTablePosX + 45) {
+                this.y -= speed;
+            System.out.println(1);
         }
-        else if (this.x + this.getDiameter() / 2 > currentTablePosX + 45) {
-            this.x -= 5; // Move left
+        // if the waiter is Above the center of the screen and the waiter has not arrived at the tables x position
+        else if (this.y + this.getDiameter()/2 < 320 && this.x + this.getDiameter()/2 != currentTablePosX + 45 ) {
+            this.y += speed;
+            System.out.println(this.y + this.getDiameter()/2);
+        }
+        // Then it should move to its x position
+        else if (this.x + this.getDiameter()/2 < currentTablePosX + 45) {
+            this.x += speed; // Move right
+        }
+        else if (this.x + this.getDiameter()/2 > currentTablePosX + 45) {
+            this.x -= speed; // Move left
+        }
+        // Go to tables y position
+        else if (this.x + this.getDiameter()/2 == currentTablePosX + 45 && this.y  > currentTablePosY + 90) {
+            this.y -= speed;
+            System.out.println("please go up");
+        }
+        else if (this.x + this.getDiameter()/2 == currentTablePosX + 45 && this.y + this.getDiameter() < currentTablePosY) {
+            this.y += speed;
+        }
+        else {
+            queue.remove(0);
         }
 
+
+
+
+
+/*
         // If the table is beneath the waiter
-        else if (this.y + this.getDiameter() < currentTablePosY) {
+        if (this.y + this.getDiameter() < currentTablePosY) {
             this.y += speed; // Move down
          }
         // if the table is above the waiter
@@ -97,9 +125,11 @@ public class Waiter implements Listener {
 
         } else {
             // object.run
-            menuQueue.remove(0);
+            queue.remove(0);
 
         }
+
+ */
     }
 
     // Calculates the x position of a table based on its tablenumber
