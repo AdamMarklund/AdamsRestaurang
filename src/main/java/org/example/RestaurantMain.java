@@ -79,6 +79,8 @@ public class RestaurantMain extends JPanel {
         g.drawString("Hello", 580,100);
     }
 
+    // Add drawmenus
+
     static  void drawWaiters(Graphics g){
         for (Waiter waiter : waiters) {
             g.setColor(Color.BLACK);

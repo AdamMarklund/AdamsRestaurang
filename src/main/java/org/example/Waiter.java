@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 
-public class Waiter implements Listener {
+public class Waiter {
     private int x;
     private int y;
     private int diameter = 50;
@@ -59,11 +59,7 @@ public class Waiter implements Listener {
 
 
     // The waiter is a subscriber to the publisher Table, getOrder = notifyListeners
-    @Override
-    public void getOrders(int tableNumber) {
 
-       // this.orderingQueue.add(tableNumber);
-    }
 
 
     // Turn into listener as well? And change into movetotable()
@@ -150,6 +146,8 @@ public class Waiter implements Listener {
         else
             return 450;
     }
+
+
 
 }
 

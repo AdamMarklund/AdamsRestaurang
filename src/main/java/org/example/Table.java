@@ -1,13 +1,18 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Table {
+public class Table implements Listener {
     private int x;
     private int y;
     private int diameter;
     private int seats;
     private int tableNumber;
+    private boolean hasOrdered = false;
+
+    private int elapsedTime = 0;
+
     static ArrayList<Waiter> listeningWaiters = new ArrayList<Waiter>();
 
 
@@ -38,8 +43,15 @@ public class Table {
         listeningWaiters.add(waiter);
     }
 
+    @Override
     public void notifyWaiters(){
+        elapsedTime += 0.33;
+        if (!hasOrdered && elapsedTime > 5) {
+            for (Waiter listeingWaiter: listeningWaiters) {
+               // listeningWaiters.addToQueue(MenuTask(1));
 
+            }
+        }
         // send in tagblnumber
     }
 

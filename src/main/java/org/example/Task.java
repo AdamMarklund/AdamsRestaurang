@@ -12,6 +12,7 @@ public class Task {
     private int tableNumber;
     private Instruction instruction;
 
+    // tableobjektet istället för tablenumber
     Task(int tableNumber, Instruction instruction) {
         this.tableNumber = tableNumber;
         this.instruction = instruction;
