@@ -43,10 +43,14 @@ public class Table {
         return tableNumber;
     }
 
-    public boolean areMenusVisible() {
+    public boolean hasMenusVisible() {
         return visibleMenus;
     }
 
+    public void setMenusVisible(boolean visibleMenus) {
+        this.visibleMenus = visibleMenus;
+
+    }
     public void addListeningWaiter(WaiterListener waiter) {
         listeningWaiters.add(waiter);
     }
@@ -57,7 +61,6 @@ public class Table {
         for (WaiterListener listeningWaiter : listeningWaiters) {
             listeningWaiter.receiveNotification(new MenuInstruction(this.tableNumber));
             hasMenus = true;
-            visibleMenus = true;
 
 
         }

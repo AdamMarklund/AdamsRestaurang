@@ -1,6 +1,8 @@
 package org.example;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Waiter implements WaiterListener {
 
@@ -11,6 +13,7 @@ public class Waiter implements WaiterListener {
 
 
     ArrayList<Task> queue= new ArrayList<Task>();
+    ArrayList<Table> tablesWaiter = new ArrayList<Table>();
 
 
     Waiter(int x, int y) {
@@ -100,7 +103,10 @@ public class Waiter implements WaiterListener {
         }
         else {
 
-            //Whenattable method
+            tablesWaiter.sort(Comparator.comparingInt(Table::getTableNumber));
+            tablesWaiter.get(tableNumber-1).setMenusVisible(true);
+
+
             queue.get(0).executeTask();
             queue.remove(0);
         }

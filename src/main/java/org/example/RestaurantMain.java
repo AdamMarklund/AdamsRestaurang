@@ -15,17 +15,28 @@ public class RestaurantMain extends JPanel {
     // In here all objects that are needed for operating the restaurant should be created.
     // This is initialisation and determines the initial state of the program.
     static void setupRestaurant(){
+        waiters.add(waiter);
+
         for (int i = 0; i < 3; i++) {
             tables.add(new Table(580 + 170 * i, 100, 1 + i));
             tables.get(i*2).addListeningWaiter(waiter);
+
             tables.add(new Table(580 + 170 * i, 450, 4 + i));
             tables.get(i*2+1).addListeningWaiter(waiter);
+
         }
 
-        waiters.add(waiter);
+        for (int i = 0; i < 3; i++) {
+            // Temporary fix
+            waiter.tablesWaiter.add(tables.get(i*2));
+            waiter.tablesWaiter.add(tables.get(i*2+1));
+        }
 
-
+        for (Table table : waiter.tablesWaiter) {
+            System.out.println(table.getTableNumber());
+        }
     }
+
 
 
     // Contains the simulation logic, should probably be broken into smaller pieces as the program expands
@@ -82,9 +93,13 @@ public class RestaurantMain extends JPanel {
             g.setColor(Color.RED);
             g.fillOval(table.getX(), table.getY(), table.getDiameter(), table.getDiameter()); // Draw circle with diameter of 50 pixels
             g.setColor(Color.WHITE);
-            g.fillOval(table.getX()+3, table.getY()+3, table.getDiameter()-6, table.getDiameter()-6);
+            g.fillOval(table.getX() + 3, table.getY() + 3, table.getDiameter() - 6, table.getDiameter() - 6);
             g.setColor(Color.BLACK);
-            g.drawString(String.valueOf(table.getTableNumber()), table.getX()+30,  table.getY()+35);
+            g.drawString(String.valueOf(table.getTableNumber()), table.getX() + 30, table.getY() + 35);
+            if (table.hasMenusVisible()) {
+                g.setColor(Color.decode("#CD7F32"));
+                g.fillRect(table.getX(), table.getY(), 20, 30);
+            }
         }
         g.drawString("Hello", 580,100);
     }
