@@ -1,19 +1,20 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Table implements Listener {
+public class Table {
     private int x;
     private int y;
     private int diameter;
     private int seats;
     private int tableNumber;
     private boolean hasOrdered = false;
+    private boolean hasMenus = false;
+    private boolean visibleMenus = false;
 
     private int elapsedTime = 0;
 
-    static ArrayList<Waiter> listeningWaiters = new ArrayList<Waiter>();
+    static ArrayList<WaiterListener> listeningWaiters = new ArrayList<WaiterListener>();
 
 
     Table(int x, int y, int tableNumber) {
@@ -22,6 +23,7 @@ public class Table implements Listener {
         this.diameter = 90;
         this.seats = 6;
         this.tableNumber = tableNumber;
+
 
     }
 
@@ -37,27 +39,40 @@ public class Table implements Listener {
         return diameter;
     }
 
-    public int getTableNumber() { return tableNumber;}
+    public int getTableNumber() {
+        return tableNumber;
+    }
 
-    public void addListeningWaiter(Waiter waiter) {
+    public boolean areMenusVisible() {
+        return visibleMenus;
+    }
+
+    public void addListeningWaiter(WaiterListener waiter) {
         listeningWaiters.add(waiter);
     }
 
-    @Override
-    public void notifyWaiters(){
-        elapsedTime += 0.33;
-        if (!hasOrdered && elapsedTime > 5) {
-            for (Waiter listeingWaiter: listeningWaiters) {
-               // listeningWaiters.addToQueue(MenuTask(1));
 
-            }
+
+    public void notifyListeners() {
+        for (WaiterListener listeningWaiter : listeningWaiters) {
+            listeningWaiter.receiveNotification(new MenuInstruction(this.tableNumber));
+            hasMenus = true;
+            visibleMenus = true;
+
+
         }
         // send in tagblnumber
     }
 
+    public void update() {
+        elapsedTime += 33;
+        // What happens when a table hasn't ordered for 5 seconds
+        if (!hasMenus && elapsedTime > 5000) {
+            System.out.println("hi");
+            notifyListeners();
+        }
 
-
-
-
+        // They should order after and additional 5 seconds
+    }
 
 }

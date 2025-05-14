@@ -2,11 +2,12 @@ package org.example;
 
 import java.util.ArrayList;
 
-public class Waiter {
+public class Waiter implements WaiterListener {
+
     private int x;
     private int y;
     private int diameter = 50;
-    private int speed = 5;
+    private int speed = 10;
 
 
     ArrayList<Task> queue= new ArrayList<Task>();
@@ -15,13 +16,16 @@ public class Waiter {
     Waiter(int x, int y) {
         this.x = x;
         this.y = y;
+        /*
 
-        queue.add((new Task(2, Task.Instruction.MENU)));
-        queue.add((new Task(1, Task.Instruction.MENU)));
-        queue.add((new Task(6, Task.Instruction.MENU)));
-        queue.add((new Task(3, Task.Instruction.MENU)));
-        queue.add((new Task(4, Task.Instruction.MENU)));
-        queue.add((new Task(5, Task.Instruction.MENU)));
+        queue.add((new MenuInstruction(2)));
+        queue.add((new TakeOrdersInstruction(1)));
+        queue.add((new MenuInstruction(3)));
+        queue.add((new MenuInstruction(4)));
+        queue.add((new MenuInstruction(5)));
+        queue.add((new MenuInstruction(6)));
+
+         */
 
 
 
@@ -46,16 +50,8 @@ public class Waiter {
     }
 
 
-    public void move() {
-        System.out.println(this.x - getDiameter()/2);
-        if (this.x - this.getDiameter()/2 < 570) {
-            this.x += speed;
-        }
-        else if (this.x - this.getDiameter()/2 >= 570) {
 
-        }
 
-    }
 
 
     // The waiter is a subscriber to the publisher Table, getOrder = notifyListeners
@@ -81,12 +77,12 @@ public class Waiter {
         // if the waiter is beneath the center of the screen and the waiter has not arrived at the tables x position
         if (this.y + this.getDiameter()/2 > 320 && this.x + this.getDiameter()/2 != currentTablePosX + 45) {
                 this.y -= speed;
-            System.out.println(1);
+
         }
         // if the waiter is Above the center of the screen and the waiter has not arrived at the tables x position
         else if (this.y + this.getDiameter()/2 < 320 && this.x + this.getDiameter()/2 != currentTablePosX + 45 ) {
             this.y += speed;
-            System.out.println(this.y + this.getDiameter()/2);
+            
         }
         // Then it should move to its x position
         else if (this.x + this.getDiameter()/2 < currentTablePosX + 45) {
@@ -103,6 +99,9 @@ public class Waiter {
             this.y += speed;
         }
         else {
+
+            //Whenattable method
+            queue.get(0).executeTask();
             queue.remove(0);
         }
 
@@ -148,7 +147,12 @@ public class Waiter {
     }
 
 
+    @Override
+    public void receiveNotification(Task instruction) {
+        queue.add(instruction);
 
+
+    }
 }
 
 

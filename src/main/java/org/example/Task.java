@@ -2,27 +2,21 @@ package org.example;
 
 import java.awt.event.WindowStateListener;
 
-public class Task {
+public abstract class Task {
 
-    enum Instruction {
-        MENU,
-        RECEIVEORDER
-    }
+
 
     private int tableNumber;
-    private Instruction instruction;
 
     // tableobjektet istället för tablenumber
-    Task(int tableNumber, Instruction instruction) {
+    Task(int tableNumber) {
         this.tableNumber = tableNumber;
-        this.instruction = instruction;
+
     }
 
     int getTableNumber() {
         return tableNumber;
     }
 
-    Instruction getTask() {
-        return instruction;
-    }
+    abstract void executeTask();
 }

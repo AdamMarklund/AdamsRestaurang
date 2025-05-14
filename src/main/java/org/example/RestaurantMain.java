@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class RestaurantMain extends JPanel {
 
     static Waiter waiter = new Waiter(500,320 - 25);
+    static HeadChef headChef = new HeadChef(200,295);
 
     static ArrayList<Waiter> waiters = new ArrayList<Waiter>();
     static ArrayList<Table> tables = new ArrayList<Table>();
@@ -31,12 +32,17 @@ public class RestaurantMain extends JPanel {
     static void update() {
 
         // what should happen with the waiter each time the simulation loops
-        for (Waiter w : waiters) {
+        for (Waiter waiter : waiters) {
 
-            w.update();
-
-            //w.move();
+            waiter.update();
         }
+
+        // What should happen with the table each time the simulation loops
+        for (Table table : tables) {
+
+            table.update();
+        }
+
 
         // ... similar updates for all other agents in the simulation.
     }
@@ -60,9 +66,13 @@ public class RestaurantMain extends JPanel {
 
         // Draw tables
         drawTables(g);
+        // During executeTask if isMenuVisible i tables, draw menus
 
         // Draw the waiters
         drawWaiters(g);
+
+        // Draw the head chef
+        drawHeadChef(g);
 
         // MORE CODE HERE
     }
@@ -81,13 +91,32 @@ public class RestaurantMain extends JPanel {
 
     // Add drawmenus
 
-    static  void drawWaiters(Graphics g){
+    static void drawWaiters(Graphics g){
         for (Waiter waiter : waiters) {
             g.setColor(Color.BLACK);
             g.fillOval(waiter.getX(), waiter.getY(), waiter.getDiameter(), waiter.getDiameter()); // Draw circle with diameter of 50 pixels
             g.setColor(Color.WHITE);
             g.fillOval(waiter.getX()+7, waiter.getY()+7, waiter.getDiameter()-14, waiter.getDiameter()-14); // Draw circle with diameter of 50 pixels
         }
+    }
+
+    static void drawHeadChef(Graphics g) {
+        // Draw master head office
+        g.setColor(new Color(93, 191, 73, 255));
+        g.fillRect(410, 200, 60, 200);
+
+        // Draw the head chef
+        g.setColor(Color.BLACK);
+        g.fillOval(headChef.getX(), headChef.getY(), headChef.getDiameter(), headChef.getDiameter());
+        // Draws head chef's inner circle/layer
+        g.setColor(Color.PINK);
+        g.fillOval(headChef.getX()+5, headChef.getY()+5, headChef.getDiameter()-10, headChef.getDiameter()-10);
+    }
+
+
+    // Draws souschef, prepchef, and manangartenåt
+    static void drawChefs(Graphics g) {
+
     }
 
     public static void main(String[] args) {
