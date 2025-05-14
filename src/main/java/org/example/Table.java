@@ -70,7 +70,7 @@ public class Table {
     public void update() {
         elapsedTime += 33;
         // What happens when a table hasn't ordered for 5 seconds
-        if (!hasMenus && elapsedTime > 5000) {
+        if (!hasMenus && elapsedTime > 2000) {
             System.out.println("hi");
             notifyListeners();
         }

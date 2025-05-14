@@ -26,10 +26,9 @@ public class RestaurantMain extends JPanel {
 
         }
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 6; i++) {
             // Temporary fix
-            waiter.tablesWaiter.add(tables.get(i*2));
-            waiter.tablesWaiter.add(tables.get(i*2+1));
+            waiter.tablesWaiter.add(tables.get(i));
         }
 
         for (Table table : waiter.tablesWaiter) {

@@ -102,9 +102,9 @@ public class Waiter implements WaiterListener {
             this.y += speed;
         }
         else {
-
             tablesWaiter.sort(Comparator.comparingInt(Table::getTableNumber));
-            tablesWaiter.get(tableNumber-1).setMenusVisible(true);
+            // change so that it takes the queue into account
+            tablesWaiter.get(queue.get(0).getTableNumber()-1).setMenusVisible(true);
 
 
             queue.get(0).executeTask();
