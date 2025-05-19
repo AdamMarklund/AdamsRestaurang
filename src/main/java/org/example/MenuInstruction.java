@@ -10,6 +10,7 @@ public class MenuInstruction extends Task {
 
     @Override
     void executeTask() {
+        //Hands out menus
         System.out.println("Menu");
 
     }

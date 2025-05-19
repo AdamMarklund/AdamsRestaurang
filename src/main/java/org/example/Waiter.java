@@ -46,6 +46,11 @@ public class Waiter implements WaiterListener {
         return diameter;
     }
 
+    public void handOutMenus() {
+        tablesWaiter.get(queue.get(0).getTableNumber()-1).setMenusVisible(true);
+
+    }
+
 
     // Moves Waiter, isAtTable, whenAtTable
     public void update() {
@@ -103,8 +108,8 @@ public class Waiter implements WaiterListener {
         }
         else {
             tablesWaiter.sort(Comparator.comparingInt(Table::getTableNumber));
-            // change so that it takes the queue into account
-            tablesWaiter.get(queue.get(0).getTableNumber()-1).setMenusVisible(true);
+
+            handOutMenus();
 
 
             queue.get(0).executeTask();

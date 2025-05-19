@@ -1,5 +1,6 @@
 package org.example;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Table {
@@ -57,11 +58,10 @@ public class Table {
 
 
 
-    public void notifyListeners() {
+    public void notifyListeners(Task instruction) {
         for (WaiterListener listeningWaiter : listeningWaiters) {
-            listeningWaiter.receiveNotification(new MenuInstruction(this.tableNumber));
+            listeningWaiter.receiveNotification(instruction);
             hasMenus = true;
-
 
         }
         // send in tagblnumber
@@ -72,7 +72,13 @@ public class Table {
         // What happens when a table hasn't ordered for 5 seconds
         if (!hasMenus && elapsedTime > 2000) {
             System.out.println("hi");
-            notifyListeners();
+            notifyListeners(new MenuInstruction(this.tableNumber));
+            elapsedTime = 0;
+        }
+        // the tables want to order
+        else if (hasMenus && elapsedTime > 2000) {
+            notifyListeners(new TakeOrdersInstruction(this.tableNumber));
+
         }
 
         // They should order after and additional 5 seconds
