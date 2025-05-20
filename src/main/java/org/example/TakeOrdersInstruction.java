@@ -1,14 +1,26 @@
 package org.example;
 
-public class TakeOrdersInstruction extends Task {
+import java.util.ArrayList;
 
+public class TakeOrdersInstruction extends Task {
+    private boolean goTokitchen = false;
 
     TakeOrdersInstruction(Table table) {
         super(table);
     }
 
+    public ArrayList<MenuItem> getOrder() {
+        return table.getOrder();
+    }
     @Override
     void executeTask() {
-        System.out.println("Orders");
+        table.placeOrder();
+        goTokitchen = true;
+        table.setMenusVisible(false);
+    }
+
+    @Override
+    boolean forceGoToKitchen() {
+        return goTokitchen;
     }
 }

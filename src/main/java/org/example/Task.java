@@ -23,4 +23,7 @@ public abstract class Task {
 
     abstract void executeTask();
 
+    boolean forceGoToKitchen() {
+        return false;
+    }
 }

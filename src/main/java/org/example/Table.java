@@ -9,23 +9,33 @@ public class Table {
     private int x;
     private int y;
     private int diameter;
-    
+
     private int seats;
     private int tableNumber;
-    private boolean hasOrdered = false;
+
+    // Variables regarding the menus
+
     private boolean hasMenus = false;
     private boolean visibleMenus = false;
+
+    // Orders
+    private Menu menu;
+    private boolean hasOrdered = false;
+    private ArrayList<MenuItem> order = new ArrayList<MenuItem>();
+
+    // Time since last course of action
     private int elapsedTime = 0;
 
     static ArrayList<WaiterListener> listeningWaiters = new ArrayList<WaiterListener>();
 
 
-    Table(int x, int y, int tableNumber) {
+    Table(int x, int y, int tableNumber, Menu menu) {
         this.x = x;
         this.y = y;
         this.diameter = 90;
         this.seats = 6;
         this.tableNumber = tableNumber;
+        this.menu = menu;
 
 
     }
@@ -78,12 +88,23 @@ public class Table {
             elapsedTime = 0;
         }
         // the tables want to order
+
         else if (hasMenus && elapsedTime > 2000) {
             notifyListeners(new TakeOrdersInstruction(this));
 
         }
 
+
+
         // They should order after and additional 5 seconds
     }
 
+    public void placeOrder() {
+        MenuItem item = menu.getItemByDishName("Pizza");
+        order.add(item);
+    }
+
+    public ArrayList<MenuItem> getOrder() {
+        return order;
+    }
 }

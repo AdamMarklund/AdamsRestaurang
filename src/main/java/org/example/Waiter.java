@@ -13,7 +13,7 @@ public class Waiter implements WaiterListener {
 
 
     ArrayList<Task> queue= new ArrayList<Task>();
-    ArrayList<Table> tablesWaiter = new ArrayList<Table>();
+    private Task currentInstruction;
 
 
     Waiter(int x, int y) {
@@ -51,7 +51,7 @@ public class Waiter implements WaiterListener {
 
     // Moves Waiter, isAtTable, whenAtTable
     public void update() {
-        executeTasks();
+        work();
     }
 
 
@@ -65,29 +65,21 @@ public class Waiter implements WaiterListener {
 
     // Turn into listener as well? And change into movetotable()
 
-    // make into one queue with objects.
-    public void executeTasks() {
-        if (queue.isEmpty()) return;
+    public void moveToTable() {
 
         int tableNumber = queue.get(0).getTableNumber();
         int currentTablePosX = calculateTablePosX(tableNumber);
         int currentTablePosY = calulateTablePosY(tableNumber);
 
-        //int directionX = this.x + this.getDiameter()/2 < ternary operator
-
-
-        // instead of long lines such as this.y + this.getDiameter()/2 > 320 && this.x
-        // use direction and set it at the beginning.
-
         // if the waiter is beneath the center of the screen and the waiter has not arrived at the tables x position
         if (this.y + this.getDiameter()/2 > 320 && this.x + this.getDiameter()/2 != currentTablePosX + 45) {
-                this.y -= speed;
+            this.y -= speed;
 
         }
         // if the waiter is Above the center of the screen and the waiter has not arrived at the tables x position
         else if (this.y + this.getDiameter()/2 < 320 && this.x + this.getDiameter()/2 != currentTablePosX + 45 ) {
             this.y += speed;
-            
+
         }
         // Then it should move to its x position
         else if (this.x + this.getDiameter()/2 < currentTablePosX + 45) {
@@ -106,33 +98,55 @@ public class Waiter implements WaiterListener {
         else {
             //tablesWaiter.sort(Comparator.comparingInt(Table::getTableNumber));
 
-
-
-
             queue.get(0).executeTask();
-            queue.remove(0);
+            if (!queue.get(0).forceGoToKitchen())
+                queue.remove(0);
+
         }
+    }
 
+    public void moveToKitchen() {
 
+        int targetX = 500;
+        int targetY = 320;
 
-
-
-/*
-        // If the table is beneath the waiter
-        if (this.y + this.getDiameter() < currentTablePosY) {
-            this.y += speed; // Move down
-         }
-        // if the table is above the waiter
-        else if (this.y > currentTablePosY + 90) {
-            this.y -= speed; // Move up
-
+        // move to the middle of y-axis
+        if (this.y + this.getDiameter()/2 > targetY) {
+            this.y -= speed;
+        } else if (this.y + this.getDiameter()/2 < targetY) {
+            this.y += speed;
+        }
+        // once in the middle of y-axis
+        else if (this.x + this.getDiameter()/2 > targetX) {
+            this.x -= speed;
         } else {
-            // object.run
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
             queue.remove(0);
-
         }
 
- */
+
+    }
+
+    // make into one queue with objects.
+    public void work() {
+        if (queue.isEmpty()) return;
+
+
+
+        //int directionX = this.x + this.getDiameter()/2 < ternary operator
+
+
+        // instead of long lines such as this.y + this.getDiameter()/2 > 320 && this.x
+        // use direction and set it at the beginning.
+        if (queue.get(0).forceGoToKitchen()) {
+            moveToKitchen();
+
+
+        } else
+            moveToTable();
+
+
+
     }
 
     // Calculates the x position of a table based on its tablenumber

@@ -12,6 +12,7 @@ public class MenuInstruction extends Task {
         //Hands out menus
         handOutMenus();
 
+
     }
 
     public void handOutMenus() {
@@ -20,4 +21,5 @@ public class MenuInstruction extends Task {
 
     }
     // gettable()
+
 }

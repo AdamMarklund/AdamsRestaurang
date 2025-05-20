@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 public class RestaurantMain extends JPanel {
 
+    static Menu menu;
+
     static Waiter waiter = new Waiter(500,320 - 25);
     static HeadChef headChef = new HeadChef(200,295);
 
@@ -17,23 +19,22 @@ public class RestaurantMain extends JPanel {
     static void setupRestaurant(){
         waiters.add(waiter);
 
+
+        // setup Menu
+        menu = new Menu();
+        menu.addItem(new MenuItem("pizza",200));
+
         for (int i = 0; i < 3; i++) {
-            tables.add(new Table(580 + 170 * i, 100, 1 + i));
+            tables.add(new Table(580 + 170 * i, 100, 1 + i, menu));
             tables.get(i*2).addListeningWaiter(waiter);
 
-            tables.add(new Table(580 + 170 * i, 450, 4 + i));
+            tables.add(new Table(580 + 170 * i, 450, 4 + i, menu));
             tables.get(i*2+1).addListeningWaiter(waiter);
 
         }
 
-        for (int i = 0; i < 6; i++) {
-            // Temporary fix
-            waiter.tablesWaiter.add(tables.get(i));
-        }
 
-        for (Table table : waiter.tablesWaiter) {
-            System.out.println(table.getTableNumber());
-        }
+
     }
 
 
