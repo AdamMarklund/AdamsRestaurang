@@ -81,6 +81,7 @@ public class Table {
 
     public void update() {
         elapsedTime += 33;
+
         // What happens when a table hasn't ordered for 5 seconds
         if (!hasMenus && elapsedTime > 2000) {
             System.out.println("hi");
@@ -89,8 +90,10 @@ public class Table {
         }
         // the tables want to order
 
-        else if (hasMenus && elapsedTime > 2000) {
+        else if (!hasOrdered && elapsedTime > 2000) {
+            System.out.println(hasOrdered);
             notifyListeners(new TakeOrdersInstruction(this));
+            hasOrdered = true;
 
         }
 
@@ -102,6 +105,7 @@ public class Table {
     public void placeOrder() {
         MenuItem item = menu.getItemByDishName("Pizza");
         order.add(item);
+        hasOrdered = true;
     }
 
     public ArrayList<MenuItem> getOrder() {
