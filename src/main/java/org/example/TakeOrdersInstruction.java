@@ -1,10 +1,10 @@
 package org.example;
 
 public class TakeOrdersInstruction extends Task {
-    int tableNumber;
 
-    TakeOrdersInstruction(int tableNumber) {
-        super(tableNumber);
+
+    TakeOrdersInstruction(Table table) {
+        super(table);
     }
 
     @Override

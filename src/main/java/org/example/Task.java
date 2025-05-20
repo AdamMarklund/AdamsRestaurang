@@ -3,20 +3,24 @@ package org.example;
 import java.awt.event.WindowStateListener;
 
 public abstract class Task {
+    protected Table table;
 
 
-
-    private int tableNumber;
 
     // tableobjektet istället för tablenumber
-    Task(int tableNumber) {
-        this.tableNumber = tableNumber;
+    Task(Table table) {
+        this.table = table;
 
     }
 
     int getTableNumber() {
-        return tableNumber;
+        return table.getTableNumber();
+    }
+
+    Table getTable() {
+        return table;
     }
 
     abstract void executeTask();
+
 }

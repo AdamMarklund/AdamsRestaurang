@@ -4,15 +4,17 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Table {
+
+    // variables regarding position
     private int x;
     private int y;
     private int diameter;
+    
     private int seats;
     private int tableNumber;
     private boolean hasOrdered = false;
     private boolean hasMenus = false;
     private boolean visibleMenus = false;
-
     private int elapsedTime = 0;
 
     static ArrayList<WaiterListener> listeningWaiters = new ArrayList<WaiterListener>();
@@ -72,12 +74,12 @@ public class Table {
         // What happens when a table hasn't ordered for 5 seconds
         if (!hasMenus && elapsedTime > 2000) {
             System.out.println("hi");
-            notifyListeners(new MenuInstruction(this.tableNumber));
+            notifyListeners(new MenuInstruction(this));
             elapsedTime = 0;
         }
         // the tables want to order
         else if (hasMenus && elapsedTime > 2000) {
-            notifyListeners(new TakeOrdersInstruction(this.tableNumber));
+            notifyListeners(new TakeOrdersInstruction(this));
 
         }
 
