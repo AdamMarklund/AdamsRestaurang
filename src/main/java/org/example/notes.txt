@@ -1,1 +1,4 @@
 dont add infite orderinstructions (use hasOrderded)
+
+SOUS,GARDEMANGER, PATISSIER ÄRVER AV CHEF. De kollar om det finns nog med ingredienser i prep.
+prep är egen.

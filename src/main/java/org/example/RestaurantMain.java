@@ -9,20 +9,27 @@ public class RestaurantMain extends JPanel {
 
     static Waiter waiter = new Waiter(500,320 - 25);
     static HeadChef headChef = new HeadChef(200,295, waiter);
+    static SousChef sousChef = new SousChef(135, 375);
+    static Patissier patissier = new Patissier(380,480);
+    static GardeManger gardeManger = new GardeManger(300,115);
 
     static ArrayList<Waiter> waiters = new ArrayList<Waiter>();
     static ArrayList<Table> tables = new ArrayList<Table>();
     static ArrayList<Guest> guest = new ArrayList<Guest>();
+    static ArrayList<Chef> chefs = new ArrayList<>();
 
     // In here all objects that are needed for operating the restaurant should be created.
     // This is initialisation and determines the initial state of the program.
     static void setupRestaurant(){
         waiters.add(waiter);
+        chefs.add(sousChef);
+        chefs.add(patissier);
+        chefs.add(gardeManger);
 
 
         // setup Menu
         menu = new Menu();
-        menu.addItem(new MenuItem("pizza",200));
+        menu.addItem(new MenuItem("pizza",200, "SOUS"));
 
         for (int i = 0; i < 3; i++) {
             tables.add(new Table(580 + 170 * i, 100, 1 + i, menu));
@@ -88,6 +95,9 @@ public class RestaurantMain extends JPanel {
 
         // Draw the kitchen
         drawKitchen(g);
+
+        // Draw the chefs
+        drawChefs(g);
     }
 
     static void drawKitchen(Graphics g) {
@@ -120,7 +130,7 @@ public class RestaurantMain extends JPanel {
         g.drawString("Hello", 580,100);
     }
 
-    // Add drawmenus
+
 
     static void drawWaiters(Graphics g){
         for (Waiter waiter : waiters) {
@@ -147,6 +157,15 @@ public class RestaurantMain extends JPanel {
 
     // Draws souschef, prepchef, and manangartenåt
     static void drawChefs(Graphics g) {
+
+
+        for (Chef chef : chefs) {
+            g.setColor(chef.getColor());
+            g.fillOval(chef.getX(), chef.getY(), chef.getDiameter(), chef.getDiameter()); // Draw circle with diameter of 50 pixels
+            g.setColor(Color.WHITE);
+            g.fillOval(chef.getX() + 3, chef.getY() + 3, chef.getDiameter() - 6, chef.getDiameter() - 6); // Draw circle with diameter of 50 pixels
+        }
+
 
     }
 

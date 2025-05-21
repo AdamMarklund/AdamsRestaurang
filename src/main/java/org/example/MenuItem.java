@@ -3,8 +3,9 @@ package org.example;
 public class MenuItem {
     private String dishName;
     private double price;
+    private String dishType;
 
-    public MenuItem(String dishName, double price) {
+    public MenuItem(String dishName, double price, String dishType) {
         this.dishName = dishName;
         this.price = price;
     }
@@ -15,5 +16,9 @@ public class MenuItem {
 
     public double getPrice() {
         return price;
+    }
+
+    public String getDishType() {
+        return dishType;
     }
 }
