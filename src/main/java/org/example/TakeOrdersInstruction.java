@@ -9,9 +9,7 @@ public class TakeOrdersInstruction extends Task {
         super(table);
     }
 
-    public ArrayList<MenuItem> getOrder() {
-        return table.getOrder();
-    }
+
     @Override
     void executeTask() {
         table.placeOrder();

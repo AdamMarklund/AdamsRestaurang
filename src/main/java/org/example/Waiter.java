@@ -13,7 +13,7 @@ public class Waiter implements WaiterListener {
 
 
     ArrayList<Task> queue= new ArrayList<Task>();
-    private Task currentInstruction;
+    private boolean isAtKitchen;
 
 
     Waiter(int x, int y) {
@@ -70,6 +70,7 @@ public class Waiter implements WaiterListener {
         int tableNumber = queue.get(0).getTableNumber();
         int currentTablePosX = calculateTablePosX(tableNumber);
         int currentTablePosY = calulateTablePosY(tableNumber);
+        isAtKitchen = false;
 
         // if the waiter is beneath the center of the screen and the waiter has not arrived at the tables x position
         if (this.y + this.getDiameter()/2 > 320 && this.x + this.getDiameter()/2 != currentTablePosX + 45) {
@@ -105,6 +106,10 @@ public class Waiter implements WaiterListener {
         }
     }
 
+    public boolean isAtKitchen() {
+        return isAtKitchen;
+    }
+
     public void moveToKitchen() {
 
         int targetX = 500;
@@ -120,7 +125,7 @@ public class Waiter implements WaiterListener {
         else if (this.x + this.getDiameter()/2 > targetX) {
             this.x -= speed;
         } else {
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+            isAtKitchen = true;
             queue.remove(0);
         }
 
@@ -133,10 +138,9 @@ public class Waiter implements WaiterListener {
 
 
 
-        //int directionX = this.x + this.getDiameter()/2 < ternary operator
 
 
-        // instead of long lines such as this.y + this.getDiameter()/2 > 320 && this.x
+
         // use direction and set it at the beginning.
         if (queue.get(0).forceGoToKitchen()) {
             moveToKitchen();

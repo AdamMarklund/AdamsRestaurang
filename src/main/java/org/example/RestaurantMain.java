@@ -8,7 +8,7 @@ public class RestaurantMain extends JPanel {
     static Menu menu;
 
     static Waiter waiter = new Waiter(500,320 - 25);
-    static HeadChef headChef = new HeadChef(200,295);
+    static HeadChef headChef = new HeadChef(200,295, waiter);
 
     static ArrayList<Waiter> waiters = new ArrayList<Waiter>();
     static ArrayList<Table> tables = new ArrayList<Table>();
@@ -54,6 +54,7 @@ public class RestaurantMain extends JPanel {
             table.update();
         }
 
+        headChef.update();
 
         // ... similar updates for all other agents in the simulation.
     }

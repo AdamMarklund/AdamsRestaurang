@@ -1,6 +1,7 @@
 package org.example;
 
 import java.awt.event.WindowStateListener;
+import java.util.ArrayList;
 
 public abstract class Task {
     protected Table table;
@@ -19,6 +20,10 @@ public abstract class Task {
 
     Table getTable() {
         return table;
+    }
+
+    public ArrayList<MenuItem> getOrder() {
+        return table.getOrder();
     }
 
     abstract void executeTask();
