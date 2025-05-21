@@ -22,7 +22,7 @@ public abstract class Task {
         return table;
     }
 
-    public ArrayList<MenuItem> getOrder() {
+    public Order getOrder() {
         return table.getOrder();
     }
 

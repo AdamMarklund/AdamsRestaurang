@@ -8,7 +8,7 @@ public class HeadChef {
     private int diameter = 65;
 
     private Waiter waiter;
-    private ArrayList<MenuItem> order = new ArrayList<>();
+    private Order order;
 
     HeadChef(int x, int y, Waiter waiter) {
         this.x = x;
@@ -23,13 +23,17 @@ public class HeadChef {
     public int getDiameter() { return diameter; }
 
     public void checkForWaiter() {
+        // return if queue empty (No more orders)
         if (waiter.queue.isEmpty()) {
-            return; 
+            return;
         }
+
+        // receiveorder when the waiter arrives to the kitchen
         if (waiter.isAtKitchen()){
             order = waiter.queue.get(0).getOrder();
         }
     }
+
 
     public void update() {
         checkForWaiter();

@@ -21,7 +21,7 @@ public class Table {
     // Orders
     private Menu menu;
     private boolean hasOrdered = false;
-    private ArrayList<MenuItem> order = new ArrayList<MenuItem>();
+    private Order order = new Order(new ArrayList<MenuItem>(),this);
 
     // Time since last course of action
     private int elapsedTime = 0;
@@ -104,11 +104,11 @@ public class Table {
 
     public void placeOrder() {
         MenuItem item = menu.getItemByDishName("Pizza");
-        order.add(item);
+        order.addItem(item);
         hasOrdered = true;
     }
 
-    public ArrayList<MenuItem> getOrder() {
+    public Order getOrder() {
         return order;
     }
 }

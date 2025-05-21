@@ -86,9 +86,24 @@ public class RestaurantMain extends JPanel {
         // Draw the head chef
         drawHeadChef(g);
 
-        // MORE CODE HERE
+        // Draw the kitchen
+        drawKitchen(g);
     }
 
+    static void drawKitchen(Graphics g) {
+        g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(0, 0, 50, 150); // Prepchef
+        g.fillRect(50, 0, 100, 50);
+        g.fillRect(350, 50, 100, 100); // Garde Manger
+        g.fillRect(450, 445, 50, 150);// Patissier
+        g.fillRect(50, 300, 75, 200); // Sous chef
+
+        g.setColor(Color.BLACK);
+        g.drawString("PrepKitchen", 150,10);
+        g.drawString("Garde Manger", 350,50);
+        g.drawString("Patissier", 450,445);
+        g.drawString("Sous chef", 50,300);
+    }
     static void drawTables(Graphics g) {
         for (Table table : tables) {
             g.setColor(Color.RED);
