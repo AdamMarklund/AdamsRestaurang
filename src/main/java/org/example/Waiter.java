@@ -66,11 +66,11 @@ public class Waiter implements WaiterListener {
     // Turn into listener as well? And change into movetotable()
 
     public void moveToTable() {
-
+        isAtKitchen = false;
         int tableNumber = queue.get(0).getTableNumber();
         int currentTablePosX = calculateTablePosX(tableNumber);
         int currentTablePosY = calulateTablePosY(tableNumber);
-        isAtKitchen = false;
+
 
         // if the waiter is beneath the center of the screen and the waiter has not arrived at the tables x position
         if (this.y + this.getDiameter()/2 > 320 && this.x + this.getDiameter()/2 != currentTablePosX + 45) {
@@ -143,6 +143,7 @@ public class Waiter implements WaiterListener {
 
         // use direction and set it at the beginning.
         if (queue.get(0).forceGoToKitchen()) {
+            //System.out.println(queue.size());
             moveToKitchen();
 
 
@@ -171,6 +172,7 @@ public class Waiter implements WaiterListener {
         else
             return 450;
     }
+
 
 
     @Override

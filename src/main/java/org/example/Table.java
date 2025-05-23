@@ -26,7 +26,7 @@ public class Table {
     // Time since last course of action
     private int elapsedTime = 0;
 
-    static ArrayList<WaiterListener> listeningWaiters = new ArrayList<WaiterListener>();
+    ArrayList<WaiterListener> listeningWaiters = new ArrayList<WaiterListener>();
 
 
     Table(int x, int y, int tableNumber, Menu menu) {
@@ -78,20 +78,18 @@ public class Table {
         }
         // send in tagblnumber
     }
-
+    int i = 0;
     public void update() {
         elapsedTime += 33;
 
         // What happens when a table hasn't ordered for 5 seconds
         if (!hasMenus && elapsedTime > 2000) {
-            System.out.println("hi");
             notifyListeners(new MenuInstruction(this));
             elapsedTime = 0;
         }
         // the tables want to order
 
         else if (!hasOrdered && elapsedTime > 2000) {
-            System.out.println(hasOrdered);
             notifyListeners(new TakeOrdersInstruction(this));
             hasOrdered = true;
 

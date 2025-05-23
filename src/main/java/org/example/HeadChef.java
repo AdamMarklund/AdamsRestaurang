@@ -1,5 +1,6 @@
 package org.example;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class HeadChef {
@@ -8,7 +9,7 @@ public class HeadChef {
     private int diameter = 65;
 
     private Waiter waiter;
-    private Order order;
+    private ArrayList<Order> order = new ArrayList<>();
 
     HeadChef(int x, int y, Waiter waiter) {
         this.x = x;
@@ -23,19 +24,21 @@ public class HeadChef {
     public int getDiameter() { return diameter; }
 
     public void checkForWaiter() {
-        // return if queue empty (No more orders)
+        // return if queue is empty (No more orders)
         if (waiter.queue.isEmpty()) {
             return;
         }
 
-        // receiveorder when the waiter arrives to the kitchen
+        // receive order when the waiter arrives to the kitchen
         if (waiter.isAtKitchen()){
-            order = waiter.queue.get(0).getOrder();
+            this.order.add(waiter.queue.get(0).getOrder());
+            //System.out.println("atkitchen");
         }
     }
 
 
     public void update() {
         checkForWaiter();
+
     }
 }
