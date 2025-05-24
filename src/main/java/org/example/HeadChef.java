@@ -11,7 +11,7 @@ public class HeadChef {
     private Waiter waiter;
     private ArrayList<Order> order = new ArrayList<>();
 
-    HeadChef(int x, int y, Waiter waiter) {
+    HeadChef(int x, int y, Waiter waiter, GardeManger gardeManger, SousChef sousChef, Patissier patissier) {
         this.x = x;
         this.y = y;
         this.waiter = waiter;
@@ -31,9 +31,16 @@ public class HeadChef {
 
         // receive order when the waiter arrives to the kitchen
         if (waiter.isAtKitchen()){
-            this.order.add(waiter.queue.get(0).getOrder());
+           addOrder();
             //System.out.println("atkitchen");
+
         }
+    }
+
+    public void addOrder() {
+        this.order.add(waiter.queue.get(0).getOrder());
+
+        
     }
 
 

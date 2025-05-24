@@ -8,10 +8,10 @@ public class RestaurantMain extends JPanel {
     static Menu menu;
 
     static Waiter waiter = new Waiter(500,320 - 25);
-    static HeadChef headChef = new HeadChef(200,295, waiter);
     static SousChef sousChef = new SousChef(135, 375);
     static Patissier patissier = new Patissier(380,480);
     static GardeManger gardeManger = new GardeManger(300,95);
+    static HeadChef headChef = new HeadChef(200,295, waiter, gardeManger, sousChef, patissier);
 
     static ArrayList<Waiter> waiters = new ArrayList<Waiter>();
     static ArrayList<Table> tables = new ArrayList<Table>();
@@ -27,20 +27,22 @@ public class RestaurantMain extends JPanel {
         chefs.add(gardeManger);
 
 
+
+
         // setup Menu
         menu = new Menu();
-        menu.addItem(new MenuItem("pizza",200, "SOUS"));
+        menu.addItem(new MenuItem("pizza",200, "SOUS", sousChef, 3));
 
         for (int i = 0; i < 3; i++) {
             tables.add(new Table(580 + 170 * i, 100, 1 + i, menu));
             tables.get(i*2).addListeningWaiter(waiter);
-           
+
             tables.add(new Table(580 + 170 * i, 450, 4 + i, menu));
             tables.get(i*2+1).addListeningWaiter(waiter);
 
         }
 
-        System.out.println(tables.get(0).listeningWaiters.size());
+
 
 
 
