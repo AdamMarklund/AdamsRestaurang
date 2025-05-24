@@ -5,15 +5,16 @@ import java.util.ArrayList;
 public class MenuItem {
     private String dishName;
     private double price;
-    private String assignedChef;
+    private Chef assignedChef;
     private int requiredIngredients;
-    private int amountOfIngredients;
 
 
-    public MenuItem(String dishName, double price, String dishType, Chef assignedChef, int requiredIngredients) {
+
+    public MenuItem(String dishName, double price, Chef assignedChef, int requiredIngredients) {
         this.dishName = dishName;
         this.price = price;
-        this.amountOfIngredients = 0;
+        this.assignedChef = assignedChef;
+        this.requiredIngredients = requiredIngredients;
     }
 
     public String getDishName() {
@@ -24,5 +25,11 @@ public class MenuItem {
         return price;
     }
 
+    public Chef getAssignedChef() {
+        return assignedChef;
+    }
 
+    public int getRequiredIngredients() {
+        return requiredIngredients;
+    }
 }

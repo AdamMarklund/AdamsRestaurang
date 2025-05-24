@@ -8,9 +8,11 @@ public class RestaurantMain extends JPanel {
     static Menu menu;
 
     static Waiter waiter = new Waiter(500,320 - 25);
-    static SousChef sousChef = new SousChef(135, 375);
-    static Patissier patissier = new Patissier(380,480);
-    static GardeManger gardeManger = new GardeManger(300,95);
+
+    static PrepChef prepChef = new PrepChef(70, 70);
+    static GardeManger gardeManger = new GardeManger(300,95, prepChef);
+    static SousChef sousChef = new SousChef(135, 375, prepChef);
+    static Patissier patissier = new Patissier(380,480, prepChef);
     static HeadChef headChef = new HeadChef(200,295, waiter, gardeManger, sousChef, patissier);
 
     static ArrayList<Waiter> waiters = new ArrayList<Waiter>();
@@ -31,7 +33,7 @@ public class RestaurantMain extends JPanel {
 
         // setup Menu
         menu = new Menu();
-        menu.addItem(new MenuItem("pizza",200, "SOUS", sousChef, 3));
+        menu.addItem(new MenuItem("pizza",200, sousChef, 3));
 
         for (int i = 0; i < 3; i++) {
             tables.add(new Table(580 + 170 * i, 100, 1 + i, menu));
@@ -66,6 +68,8 @@ public class RestaurantMain extends JPanel {
         }
 
         headChef.update();
+        prepChef.update();
+        sousChef.update();
 
         // ... similar updates for all other agents in the simulation.
     }
@@ -170,6 +174,10 @@ public class RestaurantMain extends JPanel {
             g.fillOval(chef.getX() + 3, chef.getY() + 3, chef.getDiameter() - 6, chef.getDiameter() - 6); // Draw circle with diameter of 50 pixels
         }
 
+        g.setColor(prepChef.getColor());
+        g.fillOval(prepChef.getX(), prepChef.getY(), prepChef.getDiameter(), prepChef.getDiameter()); // Draw circle with diameter of 50 pixels
+        g.setColor(Color.WHITE);
+        g.fillOval(prepChef.getX() + 3, prepChef.getY() + 3, prepChef.getDiameter() - 6, prepChef.getDiameter() - 6);
 
     }
 
