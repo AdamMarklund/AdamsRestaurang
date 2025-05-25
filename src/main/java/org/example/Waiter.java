@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Waiter implements WaiterListener {
+public class Waiter implements TableListener {
 
     private int x;
     private int y;
@@ -126,7 +126,7 @@ public class Waiter implements WaiterListener {
             this.x -= speed;
         } else {
             isAtKitchen = true;
-            queue.remove(0);
+            //queue.remove(0);
         }
 
 

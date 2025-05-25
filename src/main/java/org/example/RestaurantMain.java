@@ -34,8 +34,9 @@ public class RestaurantMain extends JPanel {
         // setup Menu
         menu = new Menu();
 
-        menu.addItem(new MenuItem("Pizza",200, sousChef, 3));
+        menu.addItem(new MenuItem("Pizza",200, sousChef, 4));
         menu.addItem(new MenuItem("Patatas Bravas", 100, gardeManger, 2));
+        menu.addItem(new MenuItem("Banana Split",150, patissier, 3 ));
         //menu.addItem(new MenuItem(""))
 
         for (int i = 0; i < 3; i++) {
@@ -74,7 +75,10 @@ public class RestaurantMain extends JPanel {
 
         headChef.update();
         prepChef.update();
+        gardeManger.update();
         sousChef.update();
+        patissier.update();
+
 
         // ... similar updates for all other agents in the simulation.
     }
@@ -122,10 +126,33 @@ public class RestaurantMain extends JPanel {
         g.fillRect(50, 300, 75, 200); // Sous chef
 
         g.setColor(Color.BLACK);
+
         g.drawString("PrepKitchen", 150,10);
+        g.drawString("Ingredients: " + prepChef.getIngredientsCount(),50,25);
+
         g.drawString("Garde Manger", 350,50);
-        g.drawString("Patissier", 450,445);
+        int i = 0;
+        for (MenuItem item : gardeManger.getDishesToMake()) {
+            g.drawString(item.getDishName(),350,60 + i * 10 );
+            i++;
+        }
+
+
         g.drawString("Sous chef", 50,300);
+        i = 0;
+        for (MenuItem item : sousChef.getDishesToMake()) {
+            g.drawString(item.getDishName(),50,310 + i * 10 );
+            i++;
+        }
+
+        g.drawString("Patissier", 450,445);
+        i = 0;
+        for (MenuItem item : patissier.getDishesToMake()) {
+            g.drawString(item.getDishName(),450,455 + i * 10 );
+            i++;
+        }
+
+
     }
     static void drawTables(Graphics g) {
         for (Table table : tables) {

@@ -54,7 +54,7 @@ public class Chef {
             // cooking the food
             if (waitForCooking) {
                 elapsedTime += 33;
-                if (elapsedTime >= 4000) {
+                if (elapsedTime >= 1000 * currentFood.getRequiredIngredients()) {
                     elapsedTime = 0;
                     waitForCooking = false;
 
@@ -79,6 +79,15 @@ public class Chef {
         }
 
         // dont forget to remove from dishes to make when done
+    }
+
+    public ArrayList<MenuItem> getDishesToMake() {
+
+        return dishesToMake;
+    }
+
+    public int getDishesToMakeSize() {
+        return dishesToMake.size();
     }
 
 

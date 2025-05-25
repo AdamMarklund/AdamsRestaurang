@@ -1,6 +1,6 @@
 package org.example;
 
-public interface WaiterListener {
+public interface TableListener {
 
 
     public void receiveNotification(Task instruction);

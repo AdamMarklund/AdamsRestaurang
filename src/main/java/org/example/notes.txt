@@ -4,3 +4,7 @@ SOUS,GARDEMANGER, PATISSIER ÄRVER AV CHEF. De kollar om det finns nog med ingre
 prep är egen.
 
 slumpa tiden det tar för de att beställa inom ett intervall.
+
+
+
+ta bort från headChefs lista

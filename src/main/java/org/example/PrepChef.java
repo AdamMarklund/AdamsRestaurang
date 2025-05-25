@@ -47,7 +47,7 @@ public class PrepChef {
 
     private void prepareIngredients() {
         this.elapsedTime += 33;
-        if (this.elapsedTime >= 2000 && ingredientsCount < MAX_INGREDIENTS_COUNT) {
+        if (this.elapsedTime >= 1000 && ingredientsCount < MAX_INGREDIENTS_COUNT) {
             ingredientsCount += 1;
             elapsedTime = 0;
 

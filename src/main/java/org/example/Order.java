@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 public class Order {
 
-    private ArrayList<MenuItem> order;
+    private ArrayList<MenuItem> orderItems;
     private Table table;
 
-    public Order(ArrayList<MenuItem> order, Table table) {
-        this.order = order;
+    public Order(ArrayList<MenuItem> orderItems, Table table) {
+        this.orderItems = orderItems;
         this.table = table;
     }
 
-    public ArrayList<MenuItem> getOrder() {
-        return order;
+    public ArrayList<MenuItem> getOrderItems() {
+        return orderItems;
     }
 
     public Table getTable() {
@@ -21,13 +21,13 @@ public class Order {
     }
 
     public void addItem(MenuItem item) {
-        this.order.add(item);
+        this.orderItems.add(item);
     }
 
 
 
     public boolean isOrderReady() {
-        for (MenuItem item : order) {
+        for (MenuItem item : orderItems) {
             if (!item.getIsFoodCooked()) {
                 return false;
             }

@@ -26,7 +26,7 @@ public class Table {
     // Time since last course of action
     private int elapsedTime = 0;
 
-    ArrayList<WaiterListener> listeningWaiters = new ArrayList<WaiterListener>();
+    ArrayList<TableListener> listeningWaiters = new ArrayList<TableListener>();
     HeadWaiterListener listeningHeadWaiter;
 
     // Guests
@@ -68,14 +68,14 @@ public class Table {
         this.visibleMenus = visibleMenus;
 
     }
-    public void addListeningWaiter(WaiterListener waiter) {
+    public void addListeningWaiter(TableListener waiter) {
         listeningWaiters.add(waiter);
     }
 
 
 
     public void notifyListeners(Task instruction) {
-        for (WaiterListener listeningWaiter : listeningWaiters) {
+        for (TableListener listeningWaiter : listeningWaiters) {
             listeningWaiter.receiveNotification(instruction);
             hasMenus = true;
 
@@ -112,10 +112,13 @@ public class Table {
 
         // Loop trhough amount of guests and randomize orders.
         MenuItem item = menu.getItemByDishName("Pizza");
-        System.out.println(item);
+        //System.out.println(item);
         MenuItem item2 = menu.getItemByDishName("Patatas Bravas");
-        order.addItem(item);
-        order.addItem(item2);
+        order.addItem((MenuItem)item.clone());
+        order.addItem((MenuItem)item2.clone());
+
+        MenuItem item3 = menu.getItemByDishName("Banana Split");
+        order.addItem((MenuItem)item3.clone());
         hasOrdered = true;
     }
 

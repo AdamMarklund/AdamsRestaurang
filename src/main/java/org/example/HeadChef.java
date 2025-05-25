@@ -9,7 +9,7 @@ public class HeadChef {
     private int diameter = 65;
 
     private Waiter waiter;
-    private ArrayList<Order> orders = new ArrayList<>();
+    private ArrayList<Order> ordersPreparing = new ArrayList<>();
 
     HeadChef(int x, int y, Waiter waiter, GardeManger gardeManger, SousChef sousChef, Patissier patissier) {
         this.x = x;
@@ -39,14 +39,14 @@ public class HeadChef {
 
     public void addOrder() {
         // The tables order
-        this.orders.add(waiter.queue.get(0).getOrder());
-
-        if (!this.orders.isEmpty()) {
-            for (MenuItem item: orders.get(0).getOrder()) {
-                item.getAssignedChef().addDish((MenuItem)item.clone());
+        //this.orderList.add(waiter.queue.get(0).getOrder());
+        //if (!this.orderList.isEmpty()) {
+            for (MenuItem item: waiter.queue.get(0).getOrder().getOrderItems()) {
+                item.getAssignedChef().addDish(item);
             }
-
-        }
+            ordersPreparing.add(waiter.queue.get(0).getOrder());
+        waiter.queue.remove(0);
+        //}
 
     }
 
@@ -54,8 +54,8 @@ public class HeadChef {
     public void update() {
 
         checkForWaiter();
-        if (!orders.isEmpty()){
-            orders.get(0).isOrderReady();
+        for (Order order: ordersPreparing) {
+            System.out.println(order.isOrderReady());
 
         }
 
