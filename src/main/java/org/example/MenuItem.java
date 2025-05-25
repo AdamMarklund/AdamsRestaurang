@@ -2,11 +2,12 @@ package org.example;
 
 import java.util.ArrayList;
 
-public class MenuItem {
+public class MenuItem implements Cloneable{
     private String dishName;
     private double price;
     private Chef assignedChef;
     private int requiredIngredients;
+    private boolean isFoodCooked;
 
 
 
@@ -15,6 +16,8 @@ public class MenuItem {
         this.price = price;
         this.assignedChef = assignedChef;
         this.requiredIngredients = requiredIngredients;
+        this.isFoodCooked = false;
+
     }
 
     public String getDishName() {
@@ -31,5 +34,22 @@ public class MenuItem {
 
     public int getRequiredIngredients() {
         return requiredIngredients;
+    }
+
+    public boolean getIsFoodCooked() {
+        return isFoodCooked;
+    }
+
+    public void setIsFoodCooked(boolean foodCooked) {
+        isFoodCooked = foodCooked;
+    }
+
+
+    protected Object clone()  {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

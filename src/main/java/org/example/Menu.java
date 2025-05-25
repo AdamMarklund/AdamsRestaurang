@@ -18,8 +18,9 @@ public class Menu {
         items.add(menuItem);
     }
     public MenuItem getItemByDishName(String dishName) {
+
         for (MenuItem item : items) {
-            if (item.getDishName().equalsIgnoreCase(dishName)) {
+            if (item.getDishName().equalsIgnoreCase(dishName)) { // forgot what equalsignorecase does
                 return item;
             }
         }

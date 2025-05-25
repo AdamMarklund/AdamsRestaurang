@@ -21,6 +21,23 @@ public class Order {
     }
 
     public void addItem(MenuItem item) {
-        order.add(item);
+        this.order.add(item);
     }
+
+
+
+    public boolean isOrderReady() {
+        for (MenuItem item : order) {
+            if (!item.getIsFoodCooked()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
+
+
+
 }

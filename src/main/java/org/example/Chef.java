@@ -50,18 +50,24 @@ public class Chef {
 
     private void prepareDish() {
         if (!dishesToMake.isEmpty()) {
-
+            MenuItem currentFood = dishesToMake.get(0);
             // cooking the food
             if (waitForCooking) {
                 elapsedTime += 33;
-                if (elapsedTime >= 3000) {
+                if (elapsedTime >= 4000) {
                     elapsedTime = 0;
                     waitForCooking = false;
-                    dishesToMake.remove(0);
+
+
+                    // Dish is ready
+                    currentFood.setIsFoodCooked(true);
+                    dishesToMake.remove(0); // Start making next dish instead.
+
 
                 }
 
             }
+            // Get the required ingredients and start cooking
             else if (prepChef.getIngredientsCount() >= dishesToMake.get(0).getRequiredIngredients()) {
                 // Take the amount of ingredients needed to make the dish from the prepChef.
                 prepChef.supplyIngredients(dishesToMake.get(0).getRequiredIngredients());

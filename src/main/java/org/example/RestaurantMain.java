@@ -33,16 +33,21 @@ public class RestaurantMain extends JPanel {
 
         // setup Menu
         menu = new Menu();
-        menu.addItem(new MenuItem("pizza",200, sousChef, 3));
+
+        menu.addItem(new MenuItem("Pizza",200, sousChef, 3));
+        menu.addItem(new MenuItem("Patatas Bravas", 100, gardeManger, 2));
+        //menu.addItem(new MenuItem(""))
 
         for (int i = 0; i < 3; i++) {
             tables.add(new Table(580 + 170 * i, 100, 1 + i, menu));
             tables.get(i*2).addListeningWaiter(waiter);
 
+
             tables.add(new Table(580 + 170 * i, 450, 4 + i, menu));
             tables.get(i*2+1).addListeningWaiter(waiter);
 
         }
+
 
 
 

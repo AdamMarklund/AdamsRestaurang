@@ -38,11 +38,12 @@ public class HeadChef {
     }
 
     public void addOrder() {
+        // The tables order
         this.orders.add(waiter.queue.get(0).getOrder());
 
         if (!this.orders.isEmpty()) {
             for (MenuItem item: orders.get(0).getOrder()) {
-                item.getAssignedChef().addDish(item);
+                item.getAssignedChef().addDish((MenuItem)item.clone());
             }
 
         }
@@ -51,7 +52,12 @@ public class HeadChef {
 
 
     public void update() {
+
         checkForWaiter();
+        if (!orders.isEmpty()){
+            orders.get(0).isOrderReady();
+
+        }
 
     }
 }

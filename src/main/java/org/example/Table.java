@@ -27,6 +27,10 @@ public class Table {
     private int elapsedTime = 0;
 
     ArrayList<WaiterListener> listeningWaiters = new ArrayList<WaiterListener>();
+    HeadWaiterListener listeningHeadWaiter;
+
+    // Guests
+    private boolean isFree = false;
 
 
     Table(int x, int y, int tableNumber, Menu menu) {
@@ -76,7 +80,11 @@ public class Table {
             hasMenus = true;
 
         }
-        // send in tagblnumber
+    }
+
+    public void notifyListeners() {
+        listeningHeadWaiter.receiveNotification();
+
     }
     int i = 0;
     public void update() {
@@ -101,8 +109,13 @@ public class Table {
     }
 
     public void placeOrder() {
+
+        // Loop trhough amount of guests and randomize orders.
         MenuItem item = menu.getItemByDishName("Pizza");
+        System.out.println(item);
+        MenuItem item2 = menu.getItemByDishName("Patatas Bravas");
         order.addItem(item);
+        order.addItem(item2);
         hasOrdered = true;
     }
 
