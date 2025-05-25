@@ -11,7 +11,8 @@ public class ServeFoodInstruction extends Task{
     @Override
     public void executeTask() {
 
-
+// Draw plates
+        // Leave 5 s after receiving food
 
     }
 

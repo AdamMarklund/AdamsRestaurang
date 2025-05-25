@@ -88,7 +88,7 @@ public class Table {
         elapsedTime += 33;
 
         // What happens when a table hasn't ordered for 5 seconds
-        if (!hasMenus && elapsedTime > 2000) {
+        if (!hasMenus && elapsedTime > 2000 ) {
             notifyListeners(new MenuInstruction(this));
             elapsedTime = 0;
         }

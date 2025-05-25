@@ -22,7 +22,7 @@ public class HeadWaiter {
         return diameter;
     }
 
-
+// loop through tables. when the guests arrive add a menutask
 
     public void update() {
 

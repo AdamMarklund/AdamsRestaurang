@@ -78,8 +78,9 @@ public class HeadChef {
     public void notifyListeners() {
         for (TableListener listeningWaiter : listeningWaiters) { // Loop needs to be remade if I add more waiters.
             for (Order order: ordersPreparing) {
-                if (order.isOrderReady()) {
+                if (order.isOrderReady() && !order.isNotified()) {
                     listeningWaiter.receiveNotification(new ServeFoodInstruction(order));
+                    order.setNotified(true);
                 }
             }
 
