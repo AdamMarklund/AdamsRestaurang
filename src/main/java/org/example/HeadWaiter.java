@@ -1,6 +1,6 @@
 package org.example;
 
-public class HeadWaiter implements HeadWaiterListener{
+public class HeadWaiter {
     private int x;
     private int y;
     private int diameter = 50;
@@ -22,10 +22,7 @@ public class HeadWaiter implements HeadWaiterListener{
         return diameter;
     }
 
-    @Override
-    public void receiveNotification() {
 
-    }
 
     public void update() {
 

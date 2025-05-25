@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Waiter implements TableListener {
+public class Waiter implements TableListener, HeadChefListener { // also implement HeadChefListener
 
     private int x;
     private int y;
@@ -100,6 +100,7 @@ public class Waiter implements TableListener {
             //tablesWaiter.sort(Comparator.comparingInt(Table::getTableNumber));
 
             queue.get(0).executeTask();
+            // If the instruction is to hand out menus
             if (!queue.get(0).forceGoToKitchen())
                 queue.remove(0);
 
@@ -178,9 +179,8 @@ public class Waiter implements TableListener {
     @Override
     public void receiveNotification(Task instruction) {
         queue.add(instruction);
-
-
     }
+
 }
 
 

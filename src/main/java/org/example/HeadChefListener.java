@@ -1,8 +1,6 @@
 package org.example;
 
-public interface TableListener {
-
+public interface HeadChefListener {
 
     public void receiveNotification(Task instruction);
-
 }

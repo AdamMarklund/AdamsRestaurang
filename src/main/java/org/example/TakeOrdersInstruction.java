@@ -21,4 +21,9 @@ public class TakeOrdersInstruction extends Task {
     boolean forceGoToKitchen() {
         return goTokitchen;
     }
+
+    @Override
+    void setForceGoToKitchen(boolean forceGoToKitchen) {
+
+    }
 }

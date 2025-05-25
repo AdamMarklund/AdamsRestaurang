@@ -31,4 +31,6 @@ public abstract class Task {
     boolean forceGoToKitchen() {
         return false;
     }
+
+    abstract void setForceGoToKitchen(boolean forceGoToKitchen);
 }

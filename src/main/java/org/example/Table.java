@@ -82,10 +82,7 @@ public class Table {
         }
     }
 
-    public void notifyListeners() {
-        listeningHeadWaiter.receiveNotification();
 
-    }
     int i = 0;
     public void update() {
         elapsedTime += 33;

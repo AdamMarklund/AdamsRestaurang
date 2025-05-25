@@ -11,7 +11,10 @@ public class MenuInstruction extends Task {
     void executeTask() {
         //Hands out menus
         handOutMenus();
+    }
 
+    @Override
+    void setForceGoToKitchen(boolean forceGoToKitchen) {
 
     }
 

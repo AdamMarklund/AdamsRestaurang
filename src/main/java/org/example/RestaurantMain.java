@@ -34,9 +34,9 @@ public class RestaurantMain extends JPanel {
         // setup Menu
         menu = new Menu();
 
-        menu.addItem(new MenuItem("Pizza",200, sousChef, 4));
-        menu.addItem(new MenuItem("Patatas Bravas", 100, gardeManger, 2));
-        menu.addItem(new MenuItem("Banana Split",150, patissier, 3 ));
+        menu.addItem(new MenuItem("Pizza",200, sousChef, 1));
+        menu.addItem(new MenuItem("Patatas Bravas", 100, gardeManger, 1));
+        menu.addItem(new MenuItem("Banana Split",150, patissier, 1 ));
         //menu.addItem(new MenuItem(""))
 
         for (int i = 0; i < 3; i++) {
@@ -49,7 +49,8 @@ public class RestaurantMain extends JPanel {
 
         }
 
-
+        // Make waiter a Listener to HeadChef
+        headChef.addListeningWaiter(waiter);
 
 
 
@@ -192,10 +193,18 @@ public class RestaurantMain extends JPanel {
         // Draws head chef's inner circle/layer
         g.setColor(Color.PINK);
         g.fillOval(headChef.getX()+5, headChef.getY()+5, headChef.getDiameter()-10, headChef.getDiameter()-10);
+
+
+        g.setColor(Color.BLACK);
+        int i = 0;
+        for (Order order : headChef.getOrdersPreparing()) {
+            g.drawString("Order " + order.getTable().getTableNumber() + ":" + order.isOrderReady(), headChef.getX() + headChef.getDiameter(), headChef.getY() + i * 10 );
+            i++;
+        }
     }
 
 
-    // Draws souschef, prepchef, and manangartenåt
+    // Draws souschef,prepchef, and manangartenåt
     static void drawChefs(Graphics g) {
 
 

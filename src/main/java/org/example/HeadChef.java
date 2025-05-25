@@ -11,6 +11,9 @@ public class HeadChef {
     private Waiter waiter;
     private ArrayList<Order> ordersPreparing = new ArrayList<>();
 
+    // Waiters listening to the HeadChef
+    ArrayList<TableListener> listeningWaiters = new ArrayList<TableListener>();
+
     HeadChef(int x, int y, Waiter waiter, GardeManger gardeManger, SousChef sousChef, Patissier patissier) {
         this.x = x;
         this.y = y;
@@ -23,6 +26,10 @@ public class HeadChef {
 
     public int getDiameter() { return diameter; }
 
+    public ArrayList<Order> getOrdersPreparing() {
+        return ordersPreparing;
+    }
+
     public void checkForWaiter() {
         // return if queue is empty (No more orders)
         if (waiter.queue.isEmpty()) {
@@ -32,6 +39,8 @@ public class HeadChef {
         // receive order when the waiter arrives to the kitchen
         if (waiter.isAtKitchen()){
            addOrder();
+           handOverFood();
+
             //System.out.println("atkitchen");
 
         }
@@ -41,12 +50,40 @@ public class HeadChef {
         // The tables order
         //this.orderList.add(waiter.queue.get(0).getOrder());
         //if (!this.orderList.isEmpty()) {
+        if (waiter.queue.size() > 0 && !waiter.queue.get(0).getOrder().isOrderReady()) {
             for (MenuItem item: waiter.queue.get(0).getOrder().getOrderItems()) {
                 item.getAssignedChef().addDish(item);
             }
             ordersPreparing.add(waiter.queue.get(0).getOrder());
         waiter.queue.remove(0);
-        //}
+        }
+
+    }
+
+    public void handOverFood() {
+        for (Order order: ordersPreparing) {
+            if (order.isOrderReady()) {
+               if (waiter.queue.get(0).getOrder() == order) {
+                   waiter.queue.get(0).setForceGoToKitchen(false);
+                   ordersPreparing.remove(order);
+                   break;
+               }
+            }
+        }
+    }
+
+    public void addListeningWaiter(TableListener waiter) {
+        listeningWaiters.add(waiter);
+    }
+    public void notifyListeners() {
+        for (TableListener listeningWaiter : listeningWaiters) { // Loop needs to be remade if I add more waiters.
+            for (Order order: ordersPreparing) {
+                if (order.isOrderReady()) {
+                    listeningWaiter.receiveNotification(new ServeFoodInstruction(order));
+                }
+            }
+
+        }
 
     }
 
@@ -59,5 +96,6 @@ public class HeadChef {
 
         }
 
+        notifyListeners();
     }
 }
