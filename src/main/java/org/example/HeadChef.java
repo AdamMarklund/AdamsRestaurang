@@ -93,7 +93,7 @@ public class HeadChef {
 
         checkForWaiter();
         for (Order order: ordersPreparing) {
-            System.out.println(order.isOrderReady());
+           // System.out.println(order.isOrderReady());
 
         }
 

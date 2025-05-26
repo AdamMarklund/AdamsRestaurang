@@ -20,6 +20,7 @@ public class MenuInstruction extends Task {
 
     public void handOutMenus() {
         getTable().setMenusVisible(true);
+        getTable().resetElapsedTime();
         //tablesWaiter.get(queue.get(0).getTableNumber()-1).setMenusVisible(true);
 
     }

@@ -8,6 +8,7 @@ public class RestaurantMain extends JPanel {
     static Menu menu;
 
     static Waiter waiter = new Waiter(500,320 - 25);
+    static HeadWaiter headWaiter = new HeadWaiter(1090-60, 320-25);
 
     static PrepChef prepChef = new PrepChef(70, 70);
     static GardeManger gardeManger = new GardeManger(300,95, prepChef);
@@ -53,7 +54,10 @@ public class RestaurantMain extends JPanel {
         headChef.addListeningWaiter(waiter);
 
 
+        for (int i = 0; i < 6; i++) {
+            headWaiter.addTable(tables.get(i));
 
+        }
 
     }
 
@@ -79,6 +83,8 @@ public class RestaurantMain extends JPanel {
         gardeManger.update();
         sousChef.update();
         patissier.update();
+
+        headWaiter.update();
 
 
         // ... similar updates for all other agents in the simulation.
@@ -116,6 +122,12 @@ public class RestaurantMain extends JPanel {
 
         // Draw the chefs
         drawChefs(g);
+
+        // Draw the HeadWaiter
+        drawHeadWaiter(g);
+
+        // Draw all guests
+        drawGuests(g);
     }
 
     static void drawKitchen(Graphics g) {
@@ -198,7 +210,7 @@ public class RestaurantMain extends JPanel {
         g.setColor(Color.BLACK);
         int i = 0;
         for (Order order : headChef.getOrdersPreparing()) {
-            g.drawString("Order " + order.getTable().getTableNumber() + ":" + order.isOrderReady(), headChef.getX() + headChef.getDiameter(), headChef.getY() + i * 10 );
+            g.drawString("Order " + order.getTable().getTableNumber() + ": " + (order.isOrderReady()?"done":"preparing"), headChef.getX() + headChef.getDiameter(), headChef.getY() + i * 10 );
             i++;
         }
     }
@@ -220,6 +232,35 @@ public class RestaurantMain extends JPanel {
         g.setColor(Color.WHITE);
         g.fillOval(prepChef.getX() + 3, prepChef.getY() + 3, prepChef.getDiameter() - 6, prepChef.getDiameter() - 6);
 
+    }
+
+    static void drawHeadWaiter(Graphics g) {
+        g.setColor(headWaiter.getColor());
+        g.fillOval(headWaiter.getX(), headWaiter.getY(), headWaiter.getDiameter(), headWaiter.getDiameter()); // Draw circle with diameter of 50 pixels
+        g.setColor(Color.WHITE);
+        g.fillOval(headWaiter.getX() + 3, headWaiter.getY() + 3, headWaiter.getDiameter() - 6, headWaiter.getDiameter() - 6);
+    }
+
+    static void drawGuests(Graphics g) {
+        for (int i = 0; i < headWaiter.getGuestGroups().size(); i++) {
+            for (Guest guest : headWaiter.getGuestGroups().get(i)) {
+                g.setColor(guest.getRandomColor());
+                g.fillOval(guest.getX(), guest.getY(), guest.getDiameter(), guest.getDiameter()); // Draw circle with diameter of 50 pixels
+                g.setColor(Color.WHITE);
+                g.fillOval(guest.getX() + 3, guest.getY() + 3, guest.getDiameter() - 6, guest.getDiameter() - 6);
+            }
+
+            if (!headWaiter.getSeatedGroups().isEmpty()) {
+                for (int j = 0; j < headWaiter.getSeatedGroups().size(); j++) {
+                    for (Guest guest : headWaiter.getSeatedGroups().get(j)) {
+                        g.setColor(guest.getRandomColor());
+                        g.fillOval(guest.getX(), guest.getY(), guest.getDiameter(), guest.getDiameter()); // Draw circle with diameter of 50 pixels
+                        g.setColor(Color.WHITE);
+                        g.fillOval(guest.getX() + 3, guest.getY() + 3, guest.getDiameter() - 6, guest.getDiameter() - 6);
+                    }
+                }
+            }
+        }
     }
 
     public static void main(String[] args) {

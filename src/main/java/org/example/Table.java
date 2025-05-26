@@ -30,7 +30,7 @@ public class Table {
     HeadWaiterListener listeningHeadWaiter;
 
     // Guests
-    private boolean isFree = false;
+    private boolean isFree = true;
 
 
     Table(int x, int y, int tableNumber, Menu menu) {
@@ -56,6 +56,9 @@ public class Table {
         return diameter;
     }
 
+    public void resetElapsedTime() {
+        elapsedTime = 0;
+    }
     public int getTableNumber() {
         return tableNumber;
     }
@@ -67,6 +70,14 @@ public class Table {
     public void setMenusVisible(boolean visibleMenus) {
         this.visibleMenus = visibleMenus;
 
+    }
+
+    public boolean isFree() {
+        return this.isFree;
+    }
+
+    public void setisFree(boolean isFree) {
+        this.isFree = isFree;
     }
     public void addListeningWaiter(TableListener waiter) {
         listeningWaiters.add(waiter);
@@ -85,16 +96,18 @@ public class Table {
 
     int i = 0;
     public void update() {
-        elapsedTime += 33;
+        if (!isFree)
+            elapsedTime += 33;
 
         // What happens when a table hasn't ordered for 5 seconds
-        if (!hasMenus && elapsedTime > 2000 ) {
+        if (!this.hasMenus && elapsedTime > 2000 && !isFree) {
+            // change so that he hands out menus when guests arrive
             notifyListeners(new MenuInstruction(this));
-            elapsedTime = 0;
+
         }
         // the tables want to order
 
-        else if (!hasOrdered && elapsedTime > 2000) {
+        else if (!hasOrdered && elapsedTime > 2000 && !isFree && hasMenusVisible()) {
             notifyListeners(new TakeOrdersInstruction(this));
             hasOrdered = true;
 
