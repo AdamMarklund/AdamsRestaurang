@@ -1,7 +1,7 @@
 package org.example;
 
 import java.awt.*;
-
+// Same thing as for all the other chefs
 public class SousChef extends Chef {
 
 

@@ -4,45 +4,51 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-
-
+/**
+ * Represents the Head Waiter who manages guests (guestgroups) and seating.
+ */
 public class HeadWaiter {
+
     private int x;
     private int y;
     private int diameter = 50;
-    private ArrayList<Table> tables = new ArrayList<>();
-    private Color color = Color.ORANGE;
-    private ArrayList<ArrayList<Guest>> guestGroups = new ArrayList<>();
-    private ArrayList<ArrayList<Guest>> seatedGroups = new ArrayList<>();
-    private ArrayList<Table> assignedTables = new ArrayList<>();
-    private Table availableTable;
 
-    private Random rand = new Random();
-    private int guestSpacing = 30; // Space between each guest
-    private int groupSpacing = 5; // Space between groups
+    private Color color = Color.ORANGE;
+
+    private ArrayList<Table> tables = new ArrayList<>(); // List of all tables in the restaurant
+    private ArrayList<ArrayList<Guest>> guestGroups = new ArrayList<>(); // Groups of guests waiting to be seated
+    private ArrayList<ArrayList<Guest>> seatedGroups = new ArrayList<>(); // Groups of guests already seated
+    private Table availableTable; // The next available table to seat guests
+
+    private Random rand = new Random(); // Random generator for group sizes
+    private int guestSpacing = 30; // Space between each guest vertically
+    private int groupSpacing = 5; // Space between groups vertically
     private int startingY = 310; // Y-position for the first guest drawn
 
+    /**
+     * Constructs a Head Waiter at a specific position.
+     *
+     * @param x the x-coordinate of the Head Waiter
+     * @param y the y-coordinate of the Head Waiter
+     */
     HeadWaiter(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
-        return x;
-    }
+    public int getX() { return x; }
 
-    public int getY() {
-        return y;
-    }
+    public int getY() { return y; }
 
-    public int getDiameter() {
-        return diameter;
-    }
+    public int getDiameter() { return diameter; }
 
-    public Color getColor() {
-        return color;
-    }
+    public Color getColor() { return color; }
 
+    /**
+     * Adds a table to the list of tables managed by the Head Waiter.
+     *
+     * @param table the Table to add
+     */
     public void addTable(Table table) {
         this.tables.add(table);
     }
@@ -55,12 +61,15 @@ public class HeadWaiter {
         return seatedGroups;
     }
 
+    /**
+     * Generates new guest groups up to a maximum of 6 groups.
+     * Each group has between 2 and 4 guests.
+     */
     public void generateGuestGroups() {
         if (guestGroups.size() < 6) {
             ArrayList<Guest> group = new ArrayList<>();
             int groupSize = rand.nextInt(3) + 2; // 2-4 people per group
 
-            // Calculate starting Y position for this group
             int currentY = calculateNextGroupStartY();
 
             for (int i = 0; i < groupSize; i++) {
@@ -68,17 +77,19 @@ public class HeadWaiter {
             }
 
             guestGroups.add(group);
-            System.out.println("Group " + guestGroups.size() + " created with " + groupSize + " guests");
         }
     }
 
-    // Calculate where the next group should start based on existing groups
+    /**
+     * Calculates the starting Y-position for the next guest group based on existing groups.
+     *
+     * @return the Y-position for the new group
+     */
     private int calculateNextGroupStartY() {
         if (guestGroups.isEmpty()) {
             return startingY;
         }
 
-        // Find the lowest Y position of the last group
         ArrayList<Guest> lastGroup = guestGroups.get(guestGroups.size() - 1);
         int lowestY = startingY;
 
@@ -88,98 +99,104 @@ public class HeadWaiter {
             }
         }
 
-        // Return the next available position (lowest Y + guest diameter + group spacing)
         return lowestY + diameter + groupSpacing;
     }
 
+    /**
+     * Moves guests from waiting groups to an available table if any is free.
+     */
     public void moveGuestsToTable() {
-        if (!guestGroups.isEmpty()){
+        if (!guestGroups.isEmpty()) {
             availableTable = findAvailableTable();
 
-            // if there exists a free table or more
             if (availableTable != null) {
-
-                // First group in line gets the first table to seat at
                 ArrayList<Guest> groupToSeat = guestGroups.get(0);
 
-                for (int i = 0; i < groupToSeat.size(); i++) {
-                    Guest currentGuest = groupToSeat.get(i);
-
+                for (Guest currentGuest : groupToSeat) {
                     moveToTargetTable(currentGuest, availableTable);
                 }
             }
         }
     }
 
-    // Calculates the x position of a table based on its tablenumber
+    /**
+     * Calculates the X-position of a table based on its table number.
+     *
+     * @param tableNumber the table number
+     * @return the X-position of the table
+     */
     public int calculateTablePosX(int tableNumber) {
         if (tableNumber < 4) {
-            return 580 + 170 * (tableNumber-1);
-        }
-        else { return calculateTablePosX(tableNumber-3);
+            return 580 + 170 * (tableNumber - 1);
+        } else {
+            return calculateTablePosX(tableNumber - 3);
         }
     }
 
-    // Decides the x position of a table based on its tablenumber
+    /**
+     * Calculates the Y-position of a table based on its table number.
+     *
+     * @param tableNumber the table number
+     * @return the Y-position of the table
+     */
     public int calulateTablePosY(int tableNumber) {
-
-        // Take the diameter into account
-        if (tableNumber < 4)
+        if (tableNumber < 4) {
             return 100;
-        else
+        } else {
             return 450;
+        }
     }
+
+    /**
+     * Moves a guest toward the target table by adjusting their X and Y coordinates.
+     * When the guest reaches the table, updates seating groups and table availability.
+     *
+     * @param currentGuest the Guest to move
+     * @param targetTable  the Table to move the guest to
+     */
     private void moveToTargetTable(Guest currentGuest, Table targetTable) {
         int tableNumber = targetTable.getTableNumber();
         int currentTablePosX = calculateTablePosX(tableNumber);
         int currentTablePosY = calulateTablePosY(tableNumber);
 
-
-        // if the waiter is beneath the center of the screen and the waiter has not arrived at the tables x position
-        if (currentGuest.getY() + this.getDiameter()/2 > 320 && currentGuest.getX() + this.getDiameter()/2 != currentTablePosX + 45) {
+        // Same logic as the waiter moveToTable. Look there to find explanation
+        if (currentGuest.getY() + this.getDiameter() / 2 > 320 && currentGuest.getX() + this.getDiameter() / 2 != currentTablePosX + 45) {
             currentGuest.moveY(-currentGuest.getSpeed());
-
-
-        }
-        // if the waiter is Above the center of the screen and the waiter has not arrived at the tables x position
-        else if (currentGuest.getY() + this.getDiameter()/2 < 320 && currentGuest.getX() + this.getDiameter()/2 != currentTablePosX + 45 ) {
+        } else if (currentGuest.getY() + this.getDiameter() / 2 < 320 && currentGuest.getX() + this.getDiameter() / 2 != currentTablePosX + 45) {
             currentGuest.moveY(currentGuest.getSpeed());
-
-        }
-        // Then it should move to its x position
-        else if (currentGuest.getX() + this.getDiameter()/2 < currentTablePosX + 45) {
-            currentGuest.moveX(currentGuest.getSpeed()); // Move right
-        }
-        else if (currentGuest.getX() + this.getDiameter()/2 > currentTablePosX + 45) {
-            currentGuest.moveX(-currentGuest.getSpeed()); // Move left
-        }
-        // Go to tables y position
-        else if (currentGuest.getX() + this.getDiameter()/2 == currentTablePosX + 45 && currentGuest.getY() > currentTablePosY + 90) {
+        } else if (currentGuest.getX() + this.getDiameter() / 2 < currentTablePosX + 45) {
+            currentGuest.moveX(currentGuest.getSpeed());
+        } else if (currentGuest.getX() + this.getDiameter() / 2 > currentTablePosX + 45) {
+            currentGuest.moveX(-currentGuest.getSpeed());
+        } else if (currentGuest.getX() + this.getDiameter() / 2 == currentTablePosX + 45 && currentGuest.getY() > currentTablePosY + 90) {
             currentGuest.moveY(-currentGuest.getSpeed());
-        }
-        else if (currentGuest.getX() + this.getDiameter()/2 == currentTablePosX + 45 && currentGuest.getY() + this.getDiameter() < currentTablePosY) {
+        } else if (currentGuest.getX() + this.getDiameter() / 2 == currentTablePosX + 45 && currentGuest.getY() + this.getDiameter() < currentTablePosY) {
             currentGuest.moveY(currentGuest.getSpeed());
-        }
-        else {
+        } else {
             System.out.println("Arrived");
             seatedGroups.add(guestGroups.get(0));
             guestGroups.remove(0);
             availableTable.setisFree(false);
-
         }
     }
 
+    /**
+     * Finds the first available free table.
+     *
+     * @return a free Table if any, otherwise null
+     */
     private Table findAvailableTable() {
         for (Table table : tables) {
             if (table.isFree()) {
                 return table;
             }
         }
-        return null; // No available tables
+        return null;
     }
 
-
-
+    /**
+     * Updates the Head Waiter state: generates guest groups and moves guests to tables.
+     */
     public void update() {
         generateGuestGroups();
         moveGuestsToTable();

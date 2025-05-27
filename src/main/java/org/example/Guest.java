@@ -4,22 +4,28 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Represents a guest in the restaurant with random color and simple movement behavior.
+ */
 public class Guest {
-    private int x;
-    private int y;
-    private int diameter = 20;
-    private Color randomColor;
-    private Random rand = new Random();
-    private int speed = 5;
 
+    private int x; // The x-position of the guest
+    private int y; // The y-position of the guest
+    private int diameter = 20; // The size of the guest
+    private Color randomColor; // The randomly generated color of the guest
+    private Random rand = new Random(); // Random generator for the color
+    private int speed = 5; // The movement speed of the guest
 
+    /**
+     * Constructs a guest at the specified position with a random color.
+     *
+     * @param x the x-coordinate of the guest
+     * @param y the y-coordinate of the guest
+     */
     Guest(int x, int y) {
         this.x = x;
         this.y = y;
-        randomColor = new Color(rand.nextInt(256),rand.nextInt(256),rand.nextInt(256));
-
-
-
+        randomColor = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256)); // Assign a random color
     }
 
     public int getX() {

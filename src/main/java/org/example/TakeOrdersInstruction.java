@@ -2,14 +2,26 @@ package org.example;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the instruction/task for taking orders from a table.
+ */
 public class TakeOrdersInstruction extends Task {
-    private boolean goTokitchen = false;
 
+    private boolean goTokitchen = false;  // Flag to indicate if the waiter should go to the kitchen after taking the order
+
+    /**
+     * Constructor that initializes the task with the given table.
+     *
+     * @param table the table from which to take the order
+     */
     TakeOrdersInstruction(Table table) {
         super(table);
     }
 
-
+    /**
+     * Executes the task of taking the order from the table.
+     * This includes placing the order and hiding the menus.
+     */
     @Override
     void executeTask() {
         table.placeOrder();
@@ -22,8 +34,9 @@ public class TakeOrdersInstruction extends Task {
         return goTokitchen;
     }
 
+
     @Override
     void setForceGoToKitchen(boolean forceGoToKitchen) {
-
+        // No implementation needed currently
     }
 }

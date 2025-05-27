@@ -1,38 +1,34 @@
+/**
+ * Represents a waiter that moves between tables and the kitchen to handle tasks.
+ * <p>
+ * The waiter listens for task notifications and adds them to a queue. It moves
+ * toward the assigned location (table or kitchen) and executes tasks when it arrives.
+ */
 package org.example;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Comparator;
 
-public class Waiter implements TableListener, HeadChefListener { // also implement HeadChefListener
+public class Waiter implements TableListener, HeadChefListener {
 
-    private int x;
-    private int y;
-    private int diameter = 50;
-    private int speed = 10;
+    private int x; // X-coordinate of the waiter
+    private int y; // Y-coordinate of the waiter
+    private int diameter = 50; // Diameter for display purposes
+    private int speed = 10; // Speed of movement
 
+    ArrayList<Task> queue = new ArrayList<>(); // Queue of tasks
+    private boolean isAtKitchen; // Flag indicating if the waiter is at the kitchen
 
-    ArrayList<Task> queue= new ArrayList<Task>();
-    private boolean isAtKitchen;
-
-
+    /**
+     * Creates a waiter at the given coordinates.
+     *
+     * @param x initial X position
+     * @param y initial Y position
+     */
     Waiter(int x, int y) {
         this.x = x;
         this.y = y;
-        /*
-
-        queue.add((new MenuInstruction(2)));
-        queue.add((new TakeOrdersInstruction(1)));
-        queue.add((new MenuInstruction(3)));
-        queue.add((new MenuInstruction(4)));
-        queue.add((new MenuInstruction(5)));
-        queue.add((new MenuInstruction(6)));
-
-         */
-
-
-
     }
+
 
     public int getX() {
         return x;
@@ -46,64 +42,43 @@ public class Waiter implements TableListener, HeadChefListener { // also impleme
         return diameter;
     }
 
-
-
-
-    // Moves Waiter, isAtTable, whenAtTable
+    /**
+     * Updates the waiter’s behavior.
+     * <p>
+     * Calls the work method to process the next task.
+     */
     public void update() {
         work();
     }
 
-
-
-
-
-
-    // The waiter is a subscriber to the publisher Table, getOrder = notifyListeners
-
-
-
-    // Turn into listener as well? And change into movetotable()
-
+    /**
+     * Moves the waiter to the current table in the queue.
+     * <p>
+     * Adjusts the X and Y positions step-by-step until reaching the table.
+     * Executes the task when the waiter arrives.
+     */
     public void moveToTable() {
         isAtKitchen = false;
         int tableNumber = queue.get(0).getTableNumber();
         int currentTablePosX = calculateTablePosX(tableNumber);
         int currentTablePosY = calulateTablePosY(tableNumber);
 
-
-        // if the waiter is beneath the center of the screen and the waiter has not arrived at the tables x position
-        if (this.y + this.getDiameter()/2 > 320 && this.x + this.getDiameter()/2 != currentTablePosX + 45) {
+        if (this.y + this.getDiameter() / 2 > 320 && this.x + this.getDiameter() / 2 != currentTablePosX + 45) {
             this.y -= speed;
-
-        }
-        // if the waiter is Above the center of the screen and the waiter has not arrived at the tables x position
-        else if (this.y + this.getDiameter()/2 < 320 && this.x + this.getDiameter()/2 != currentTablePosX + 45 ) {
+        } else if (this.y + this.getDiameter() / 2 < 320 && this.x + this.getDiameter() / 2 != currentTablePosX + 45) {
             this.y += speed;
-
-        }
-        // Then it should move to its x position
-        else if (this.x + this.getDiameter()/2 < currentTablePosX + 45) {
-            this.x += speed; // Move right
-        }
-        else if (this.x + this.getDiameter()/2 > currentTablePosX + 45) {
-            this.x -= speed; // Move left
-        }
-        // Go to tables y position
-        else if (this.x + this.getDiameter()/2 == currentTablePosX + 45 && this.y  > currentTablePosY + 90) {
+        } else if (this.x + this.getDiameter() / 2 < currentTablePosX + 45) {
+            this.x += speed;
+        } else if (this.x + this.getDiameter() / 2 > currentTablePosX + 45) {
+            this.x -= speed;
+        } else if (this.x + this.getDiameter() / 2 == currentTablePosX + 45 && this.y > currentTablePosY + 90) {
             this.y -= speed;
-        }
-        else if (this.x + this.getDiameter()/2 == currentTablePosX + 45 && this.y + this.getDiameter() < currentTablePosY) {
+        } else if (this.x + this.getDiameter() / 2 == currentTablePosX + 45 && this.y + this.getDiameter() < currentTablePosY) {
             this.y += speed;
-        }
-        else {
-            //tablesWaiter.sort(Comparator.comparingInt(Table::getTableNumber));
-
+        } else {
             queue.get(0).executeTask();
-            // If the instruction is to hand out menus
             if (!queue.get(0).forceGoToKitchen())
                 queue.remove(0);
-
         }
     }
 
@@ -111,76 +86,74 @@ public class Waiter implements TableListener, HeadChefListener { // also impleme
         return isAtKitchen;
     }
 
+    /**
+     * Moves the waiter to the kitchen at fixed coordinates.
+     * <p>
+     * Adjusts the X and Y positions step-by-step until reaching the kitchen.
+     * Sets isAtKitchen to true when arrived.
+     */
     public void moveToKitchen() {
-
         int targetX = 500;
         int targetY = 320;
 
-        // move to the middle of y-axis
-        if (this.y + this.getDiameter()/2 > targetY) {
+        if (this.y + this.getDiameter() / 2 > targetY) {
             this.y -= speed;
-        } else if (this.y + this.getDiameter()/2 < targetY) {
+        } else if (this.y + this.getDiameter() / 2 < targetY) {
             this.y += speed;
-        }
-        // once in the middle of y-axis
-        else if (this.x + this.getDiameter()/2 > targetX) {
+        } else if (this.x + this.getDiameter() / 2 > targetX) {
             this.x -= speed;
         } else {
             isAtKitchen = true;
-            //queue.remove(0);
         }
-
-
     }
 
-    // make into one queue with objects.
+    /**
+     * Processes the next task in the queue.
+     * <p>
+     * If the task requires going to the kitchen, calls moveToKitchen.
+     * Otherwise, calls moveToTable.
+     */
     public void work() {
         if (queue.isEmpty()) return;
 
-
-
-
-
-
-        // use direction and set it at the beginning.
         if (queue.get(0).forceGoToKitchen()) {
-            //System.out.println(queue.size());
             moveToKitchen();
-
-
-        } else
+        } else {
             moveToTable();
-
-
-
+        }
     }
 
-    // Calculates the x position of a table based on its tablenumber
+    /**
+     * Calculates the X position of a table based on its table number.
+     *
+     * @param tableNumber the table number (1-6)
+     * @return X position of the table
+     */
     public int calculateTablePosX(int tableNumber) {
         if (tableNumber < 4) {
-            return 580 + 170 * (tableNumber-1);
-        }
-        else { return calculateTablePosX(tableNumber-3);
+            return 580 + 170 * (tableNumber - 1);
+        } else {
+            return calculateTablePosX(tableNumber - 3);
         }
     }
 
-    // Decides the x position of a table based on its tablenumber
+    /**
+     * Calculates the Y position of a table based on its table number.
+     *
+     * @param tableNumber the table number (1-6)
+     * @return Y position of the table
+     */
     public int calulateTablePosY(int tableNumber) {
-
-        // Take the diameter into account
-        if (tableNumber < 4)
-            return 100;
-        else
-            return 450;
+        return (tableNumber < 4) ? 100 : 450;
     }
 
-
-
+    /**
+     * Receives a task notification and adds it to the queue.
+     *
+     * @param instruction the task to be added
+     */
     @Override
     public void receiveNotification(Task instruction) {
         queue.add(instruction);
     }
-
 }
-
-

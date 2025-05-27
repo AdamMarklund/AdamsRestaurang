@@ -8,3 +8,5 @@ slumpa tiden det tar för de att beställa inom ett intervall.
 
 
 ta bort från headChefs lista
+
+kolla private/public
