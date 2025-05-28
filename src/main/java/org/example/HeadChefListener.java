@@ -2,5 +2,5 @@ package org.example;
 
 public interface HeadChefListener {
 
-    public void receiveNotification(Task instruction);
+    public void receiveNotification(Instructions instruction);
 }

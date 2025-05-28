@@ -42,9 +42,9 @@ public class RestaurantMain extends JPanel {
 
         // Initialize menu with dishes and responsible chefs
         menu = new Menu();
-        menu.addItem(new MenuItem("Pizza", 200, sousChef, 1));
-        menu.addItem(new MenuItem("Patatas Bravas", 100, gardeManger, 1));
-        menu.addItem(new MenuItem("Banana Split", 150, patissier, 1));
+        menu.addItem(new MenuItem("Pizza", 200, sousChef, 4));
+        menu.addItem(new MenuItem("Patatas Bravas", 100, gardeManger, 2));
+        menu.addItem(new MenuItem("Banana Split", 150, patissier, 3));
 
         // Create tables in two rows, assign menu and listening waiter
         for (int i = 0; i < 3; i++) {
@@ -185,6 +185,10 @@ public class RestaurantMain extends JPanel {
             g.fillOval(waiter.getX(), waiter.getY(), waiter.getDiameter(), waiter.getDiameter());
             g.setColor(Color.WHITE);
             g.fillOval(waiter.getX() + 7, waiter.getY() + 7, waiter.getDiameter() - 14, waiter.getDiameter() - 14);
+            g.setColor(Color.BLACK);
+            if (!waiter.queue.isEmpty()) {
+                g.drawString(waiter.getCurrentTaskString(), waiter.getX(), waiter.getY());
+            }
         }
     }
 

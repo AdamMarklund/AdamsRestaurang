@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.ArrayList;
 
 /**
  * Represents a menu item in the restaurant.

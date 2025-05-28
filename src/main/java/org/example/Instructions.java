@@ -1,22 +1,19 @@
 package org.example;
 
-import java.awt.event.WindowStateListener;
-import java.util.ArrayList;
-
 /**
  * Represents an abstract task that a waiter can perform at a table.
  * <p>
  * Each task is associated with a table. Subclasses implement specific tasks.
  */
-public abstract class Task {
+public abstract class Instructions {
     protected Table table;
 
     /**
-     * Creates a task for a specific table.
+     * Creates an instruction for a specific table.
      *
      * @param table the table associated with the task
      */
-    Task(Table table) {
+    Instructions(Table table) {
         this.table = table;
     }
 
@@ -52,6 +49,8 @@ public abstract class Task {
     boolean forceGoToKitchen() {
         return false;
     }
+
+    abstract String getTaskString();
 
     abstract void setForceGoToKitchen(boolean forceGoToKitchen);
 }

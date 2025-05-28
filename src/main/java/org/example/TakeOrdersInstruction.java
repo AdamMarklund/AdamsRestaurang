@@ -1,11 +1,9 @@
 package org.example;
 
-import java.util.ArrayList;
-
 /**
  * Represents the instruction/task for taking orders from a table.
  */
-public class TakeOrdersInstruction extends Task {
+public class TakeOrdersInstruction extends Instructions {
 
     private boolean goTokitchen = false;  // Flag to indicate if the waiter should go to the kitchen after taking the order
 
@@ -34,6 +32,10 @@ public class TakeOrdersInstruction extends Task {
         return goTokitchen;
     }
 
+    @Override
+    public String getTaskString() {
+        return "Taking orders";
+    }
 
     @Override
     void setForceGoToKitchen(boolean forceGoToKitchen) {

@@ -15,7 +15,7 @@ public class Waiter implements TableListener, HeadChefListener {
     private int diameter = 50; // Diameter for display purposes
     private int speed = 10; // Speed of movement
 
-    ArrayList<Task> queue = new ArrayList<>(); // Queue of tasks
+    ArrayList<Instructions> queue = new ArrayList<>(); // Queue of tasks
     private boolean isAtKitchen; // Flag indicating if the waiter is at the kitchen
 
     /**
@@ -76,6 +76,7 @@ public class Waiter implements TableListener, HeadChefListener {
         } else if (this.x + this.getDiameter() / 2 == currentTablePosX + 45 && this.y + this.getDiameter() < currentTablePosY) {
             this.y += speed;
         } else {
+            // When at table
             queue.get(0).executeTask();
             if (!queue.get(0).forceGoToKitchen())
                 queue.remove(0);
@@ -123,6 +124,10 @@ public class Waiter implements TableListener, HeadChefListener {
         }
     }
 
+    public String getCurrentTaskString() {
+        return queue.get(0).getTaskString();
+    }
+
     /**
      * Calculates the X position of a table based on its table number.
      *
@@ -153,7 +158,7 @@ public class Waiter implements TableListener, HeadChefListener {
      * @param instruction the task to be added
      */
     @Override
-    public void receiveNotification(Task instruction) {
+    public void receiveNotification(Instructions instruction) {
         queue.add(instruction);
     }
 }

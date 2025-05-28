@@ -3,7 +3,7 @@ package org.example;
 /**
  * Represents a task for handing out menus to a table.
  */
-public class MenuInstruction extends Task {
+public class MenuInstruction extends Instructions {
 
     /**
      * Constructs a MenuInstruction associated with a specific table.
@@ -31,6 +31,11 @@ public class MenuInstruction extends Task {
      */
     @Override
     void setForceGoToKitchen(boolean forceGoToKitchen) {
+    }
+
+    @Override
+    public String getTaskString() {
+        return "Handing out menus";
     }
 
     /**

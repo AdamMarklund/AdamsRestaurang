@@ -70,6 +70,7 @@ public class HeadWaiter {
             ArrayList<Guest> group = new ArrayList<>();
             int groupSize = rand.nextInt(3) + 2; // 2-4 people per group
 
+            //
             int currentY = calculateNextGroupStartY();
 
             for (int i = 0; i < groupSize; i++) {
@@ -99,7 +100,7 @@ public class HeadWaiter {
             }
         }
 
-        return lowestY + diameter + groupSpacing;
+        return lowestY + this.diameter + groupSpacing;
     }
 
     /**

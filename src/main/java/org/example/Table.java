@@ -1,6 +1,5 @@
 package org.example;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -10,6 +9,7 @@ import java.util.ArrayList;
  */
 public class Table {
 
+    // Variables regarding the illustration of the table
     private int x;
     private int y;
     private int diameter;
@@ -18,15 +18,14 @@ public class Table {
 
     private boolean hasMenus = false;     // Indicates if menus have been handed out
     private boolean visibleMenus = false; // Indicates if menus are currently visible
+    private Menu menu;// The menu available for this table
 
-    private Menu menu;                // The menu available for this table
     private boolean hasOrdered = false;    // Indicates if the table has placed an order
     private Order order = new Order(new ArrayList<MenuItem>(), this); // Current order for this table
 
     private int elapsedTime = 0;      // Time elapsed since last table action (in ms)
 
     ArrayList<TableListener> listeningWaiters = new ArrayList<TableListener>();  // Waiters listening for table events
-    HeadWaiterListener listeningHeadWaiter;    // Head waiter listener for the table (should probabl be used instead of listeningWaiters in one case)
 
     private boolean isFree = true;   // Indicates if the table is free (no guests)
 
@@ -86,7 +85,7 @@ public class Table {
         listeningWaiters.add(waiter);
     }
 
-    public void notifyListeners(Task instruction) {
+    public void notifyListeners(Instructions instruction) {
         for (TableListener listeningWaiter : listeningWaiters) {
             listeningWaiter.receiveNotification(instruction);
             hasMenus = true;

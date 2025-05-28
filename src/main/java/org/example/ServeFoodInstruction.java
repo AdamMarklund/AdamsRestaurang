@@ -4,7 +4,7 @@ package org.example;
  * Task representing the instruction for serving food to a table.
  * Handles whether the waiter needs to go to the kitchen for this task.
  */
-public class ServeFoodInstruction extends Task {
+public class ServeFoodInstruction extends Instructions {
 
     private boolean goTokitchen = true; // Flag indicating if the waiter should go to the kitchen to get the food
 
@@ -35,6 +35,11 @@ public class ServeFoodInstruction extends Task {
     @Override
     boolean forceGoToKitchen() {
         return goTokitchen;
+    }
+
+    @Override
+    public String getTaskString() {
+        return "Serving food";
     }
 
     /**
