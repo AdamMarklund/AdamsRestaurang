@@ -49,7 +49,11 @@ public class MenuTest {
         MenuItem retrievedBananaSplit = menu.getItemByDishName("Banana Split");
         assertNotNull(retrievedBananaSplit);
         assertEquals("Banana Split", retrievedBananaSplit.getDishName());
+    }
 
+    @Test
+    public void testGetFaultyItemByDishName() {
         assertNull(menu.getItemByDishName("Sushi")); // Non-existent dish should return null
+
     }
 }
