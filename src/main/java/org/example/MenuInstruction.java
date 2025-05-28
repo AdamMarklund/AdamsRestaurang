@@ -3,7 +3,7 @@ package org.example;
 /**
  * Represents a task for handing out menus to a table.
  */
-public class MenuInstruction extends Instructions {
+public class MenuInstruction extends Instruction {
 
     /**
      * Constructs a MenuInstruction associated with a specific table.

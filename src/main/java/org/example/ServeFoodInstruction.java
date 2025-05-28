@@ -4,7 +4,7 @@ package org.example;
  * Task representing the instruction for serving food to a table.
  * Handles whether the waiter needs to go to the kitchen for this task.
  */
-public class ServeFoodInstruction extends Instructions {
+public class ServeFoodInstruction extends Instruction {
 
     private boolean goTokitchen = true; // Flag indicating if the waiter should go to the kitchen to get the food
 

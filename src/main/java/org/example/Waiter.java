@@ -15,7 +15,7 @@ public class Waiter implements TableListener, HeadChefListener {
     private int diameter = 50; // Diameter for display purposes
     private int speed = 10; // Speed of movement
 
-    ArrayList<Instructions> queue = new ArrayList<>(); // Queue of tasks
+    ArrayList<Instruction> queue = new ArrayList<>(); // Queue of tasks
     private boolean isAtKitchen; // Flag indicating if the waiter is at the kitchen
 
     /**
@@ -158,7 +158,7 @@ public class Waiter implements TableListener, HeadChefListener {
      * @param instruction the task to be added
      */
     @Override
-    public void receiveNotification(Instructions instruction) {
+    public void receiveNotification(Instruction instruction) {
         queue.add(instruction);
     }
 }

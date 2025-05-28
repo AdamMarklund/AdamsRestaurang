@@ -5,7 +5,7 @@ package org.example;
  * <p>
  * Each task is associated with a table. Subclasses implement specific tasks.
  */
-public abstract class Instructions {
+public abstract class Instruction {
     protected Table table;
 
     /**
@@ -13,7 +13,7 @@ public abstract class Instructions {
      *
      * @param table the table associated with the task
      */
-    Instructions(Table table) {
+    Instruction(Table table) {
         this.table = table;
     }
 

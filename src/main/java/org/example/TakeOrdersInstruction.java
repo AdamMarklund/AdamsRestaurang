@@ -3,7 +3,7 @@ package org.example;
 /**
  * Represents the instruction/task for taking orders from a table.
  */
-public class TakeOrdersInstruction extends Instructions {
+public class TakeOrdersInstruction extends Instruction {
 
     private boolean goTokitchen = false;  // Flag to indicate if the waiter should go to the kitchen after taking the order
 

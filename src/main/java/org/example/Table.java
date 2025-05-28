@@ -85,7 +85,7 @@ public class Table {
         listeningWaiters.add(waiter);
     }
 
-    public void notifyListeners(Instructions instruction) {
+    public void notifyListeners(Instruction instruction) {
         for (TableListener listeningWaiter : listeningWaiters) {
             listeningWaiter.receiveNotification(instruction);
             hasMenus = true;
